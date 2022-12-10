@@ -1,2 +1,35 @@
 # CuteTimer
-A cute timer 
+A cute timer that I made because I was wondering why productivity had to be minimalist. Why can't it be cute?
+
+## Features
+- Normal (minute-based) Timer
+- Pomodoro Timer
+- 52/17 Timer
+
+## Technical Details
+Made with
+- Python
+- PyQt5
+- PyQt Designer
+
+## Warning!
+- Pink may not be my favorite color but it felt right to make version 1.0 pink
+
+## Progress Notes
+- Added basic UI (no pink yet)
+
+## Issues + Challenges
+I am doing this project to learn application making with Python so if you have any suggestions/challenges on how I can improve feel free to open an issue and let me know. 
+If you want to do it yourself, please do, just take a look  at my contribution policy below.
+
+## Contribution Policy
+This is an open repository so feel free to make/suggest changes. If you make a change please comment explanantions throughout the code so I can understand what you need. 
+This is a learning project for me and I would love to learn from you, thank you. 
+
+## Code of Conduct
+I don't have a code of conduct but I will make one if I have to. 
+
+## Future Plans
+- Different Themes
+- Windows 15 minute interval focus timer
+
