@@ -24,7 +24,7 @@ I am doing this project to learn application making with Python so if you have a
 If you want to do it yourself, please do, just take a look  at my contribution policy below.
 
 ## Contribution Policy
-This is an open repository so feel free to make/suggest changes. If you make a change please comment explanantions throughout the code so I can understand what you need. 
+Feel free to contribute/improve but please fork the repository before making any changes, thank you. If you make a change please comment explanantions throughout the code so I can understand what you need. 
 This is a learning project for me and I would love to learn from you, thank you. 
 
 ## Code of Conduct
