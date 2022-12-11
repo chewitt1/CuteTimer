@@ -9,15 +9,17 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from timeit import default_timer as timer
 import timer_normal
 
 normalTimer = timer_normal.Timer()
-
+on = False
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(800, 600)
+        self.timer = QtCore.QTimer();
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.view = QtWidgets.QScrollArea(self.centralwidget)
@@ -159,8 +161,15 @@ class Ui_MainWindow(object):
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
         # Timer Control Trackers
-        self.control3.clicked.connect(self.control3Clicked)
         self.control1.clicked.connect(self.control1Clicked)
+        self.control2.clicked.connect(self.control2Clicked)
+        self.control3.clicked.connect(self.control3Clicked)
+
+        self.start_stop.clicked.connect(self.on_press)
+        self.start_stop.released.connect(self.on_release)
+        self.timer.timeout.connect(self.startStop)
+        # self.runTimer()
+
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
@@ -204,12 +213,43 @@ class Ui_MainWindow(object):
             curr = normalTimer.goal
             self.focus.setText(normalTimer.startTimer(curr))
 
+    def control2Clicked(self):
+        if (self.Title_2.text() == "Normal"):
+            self.Title_2.setText("Break")
+            self.control2.setText("timer")
+        elif (self.Title_2.text() == "Break"):
+            self.Title_2.setText("Normal")
+            self.control2.setText("break")
+
     def control3Clicked(self):
         global normalTimer
         if(self.Title_2.text() == "Normal"):
             normalTimer.goal +=1
             curr =  normalTimer.goal
             self.focus.setText(normalTimer.startTimer(curr))
+
+    def on_release(self):
+        self.timer.stop()
+
+    def on_press(self):
+        global on, normalTimer
+        if (self.Title_2.text() == "Normal"):
+            if(on):
+                on = False
+                self.focus.setText(normalTimer.getTimeString())
+            elif(not on):
+                on = True
+        self.timer.start(1000)
+
+    def startStop(self):
+        if (self.Title_2.text() == "Normal") or (self.Title_2.text() == "Break"):
+            global on, normalTimer
+            if (self.Title_2.text() == "Normal"):
+                if(on):
+                    global normalTimer
+                    self.focus.setText(normalTimer.getTimeString())
+
+
 
 
 if __name__ == "__main__":

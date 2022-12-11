@@ -10,6 +10,7 @@ class Timer:
     elapsed = last = -1
 
     def getTimeString(self):
+
         min = sec = 0
         global goal
 
