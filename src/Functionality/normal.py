@@ -160,6 +160,7 @@ class Ui_MainWindow(object):
 
         # Timer Control Trackers
         self.control3.clicked.connect(self.control3Clicked)
+        self.control1.clicked.connect(self.control1Clicked)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
@@ -195,12 +196,20 @@ class Ui_MainWindow(object):
 
     # Timer Button Scripts
 
+    def control1Clicked(self):
+        global normalTimer
+        if (self.Title_2.text() == "Normal"):
+            if(normalTimer.goal > 0):
+                normalTimer.goal -= 1
+            curr = normalTimer.goal
+            self.focus.setText(normalTimer.startTimer(curr))
+
     def control3Clicked(self):
         global normalTimer
         if(self.Title_2.text() == "Normal"):
-            curr = normalTimer.goal
-            normalTimer.startTimer(curr + 1)
-            self.focus.setText(normalTimer.getTimeString())
+            normalTimer.goal +=1
+            curr =  normalTimer.goal
+            self.focus.setText(normalTimer.startTimer(curr))
 
 
 if __name__ == "__main__":
