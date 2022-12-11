@@ -17,6 +17,7 @@ Made with
 
 ## Progress Notes
 - Added basic UI (no pink yet)
+- Added normal timer (Bug: goes from intial value to 58 seconds rather than 59)
 
 ## Issues + Challenges
 I am doing this project to learn application making with Python so if you have any suggestions/challenges on how I can improve feel free to open an issue and let me know. 
