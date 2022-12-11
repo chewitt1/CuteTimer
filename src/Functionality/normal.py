@@ -9,6 +9,9 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+import timer_normal
+
+normalTimer = timer_normal.Timer()
 
 
 class Ui_MainWindow(object):
@@ -25,20 +28,20 @@ class Ui_MainWindow(object):
         self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 468, 518))
         self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
         self.control2 = QtWidgets.QPushButton(self.scrollAreaWidgetContents)
-        self.control2.setGeometry(QtCore.QRect(183, 60, 100, 30))
+        self.control2.setGeometry(QtCore.QRect(183, 120, 100, 30))
         font = QtGui.QFont()
         font.setPointSize(10)
         self.control2.setFont(font)
         self.control2.setObjectName("control2")
         self.focus = QtWidgets.QLabel(self.scrollAreaWidgetContents)
-        self.focus.setGeometry(QtCore.QRect(18, 110, 431, 271))
+        self.focus.setGeometry(QtCore.QRect(10, 200, 450, 140))
         font = QtGui.QFont()
         font.setPointSize(86)
         self.focus.setFont(font)
         self.focus.setAlignment(QtCore.Qt.AlignCenter)
         self.focus.setObjectName("focus")
         self.control1 = QtWidgets.QPushButton(self.scrollAreaWidgetContents)
-        self.control1.setGeometry(QtCore.QRect(16, 60, 100, 30))
+        self.control1.setGeometry(QtCore.QRect(10, 120, 100, 30))
         font = QtGui.QFont()
         font.setPointSize(10)
         self.control1.setFont(font)
@@ -50,11 +53,23 @@ class Ui_MainWindow(object):
         self.start_stop.setFont(font)
         self.start_stop.setObjectName("start_stop")
         self.control3 = QtWidgets.QPushButton(self.scrollAreaWidgetContents)
-        self.control3.setGeometry(QtCore.QRect(350, 60, 100, 30))
+        self.control3.setGeometry(QtCore.QRect(350, 120, 100, 30))
         font = QtGui.QFont()
         font.setPointSize(10)
         self.control3.setFont(font)
         self.control3.setObjectName("control3")
+        self.Title_2 = QtWidgets.QLabel(self.scrollAreaWidgetContents)
+        self.Title_2.setGeometry(QtCore.QRect(80, 10, 311, 91))
+        font = QtGui.QFont()
+        font.setFamily("OCR A Extended")
+        font.setPointSize(31)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(50)
+        self.Title_2.setFont(font)
+        self.Title_2.setAutoFillBackground(False)
+        self.Title_2.setAlignment(QtCore.Qt.AlignCenter)
+        self.Title_2.setObjectName("Title_2")
         self.view.setWidget(self.scrollAreaWidgetContents)
         self.Title = QtWidgets.QLabel(self.centralwidget)
         self.Title.setGeometry(QtCore.QRect(489, 10, 311, 91))
@@ -143,6 +158,9 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
+        # Timer Control Trackers
+        self.control3.clicked.connect(self.control3Clicked)
+
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
@@ -151,6 +169,7 @@ class Ui_MainWindow(object):
         self.control1.setText(_translate("MainWindow", "-"))
         self.start_stop.setText(_translate("MainWindow", "S T A R T"))
         self.control3.setText(_translate("MainWindow", "+"))
+        self.Title_2.setText(_translate("MainWindow", "Normal"))
         self.Title.setText(_translate("MainWindow", "Cute Timer"))
         self.Emoji.setText(_translate("MainWindow", "(✿◠‿◠) "))
         self.pomodoroButton.setText(_translate("MainWindow", "Pomodoro"))
@@ -173,6 +192,15 @@ class Ui_MainWindow(object):
         self.actionCredits.setShortcut(_translate("MainWindow", "Ctrl+C"))
         self.actionTheme.setText(_translate("MainWindow", "Theme"))
         self.actionTheme.setShortcut(_translate("MainWindow", "Ctrl+T"))
+
+    # Timer Button Scripts
+
+    def control3Clicked(self):
+        global normalTimer
+        if(self.Title_2.text() == "Normal"):
+            curr = normalTimer.goal
+            normalTimer.startTimer(curr + 1)
+            self.focus.setText(normalTimer.getTimeString())
 
 
 if __name__ == "__main__":
