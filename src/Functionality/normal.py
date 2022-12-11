@@ -211,6 +211,7 @@ class Ui_MainWindow(object):
 
     # Timer Button Scripts
     def normalClicked(self):
+        self.Title_2.setText("Normal")
         self.control1.setText("-")
         self.control1.update()
         self.control2.setText("break")
@@ -219,6 +220,7 @@ class Ui_MainWindow(object):
         self.control3.update()
 
     def pomodoroClicked(self):
+        self.Title_2.setText("Pomodoro")
         self.control1.setText("pomodoro")
         self.control1.update()
         self.control2.setText("short break")
@@ -227,6 +229,7 @@ class Ui_MainWindow(object):
         self.control3.update()
 
     def fiftyClicked(self):
+        self.Title_2.setText("52 / 17")
         self.control1.setText("52")
         self.control1.update()
         self.control2.setText("52/17")
@@ -235,12 +238,16 @@ class Ui_MainWindow(object):
         self.control3.update()
 
     def control1Clicked(self):
-        global normalTimer
         if (self.Title_2.text() == "Normal"):
+            global normalTimer
             if(normalTimer.goal > 0):
                 normalTimer.goal -= 1
             curr = normalTimer.goal
             self.focus.setText(normalTimer.startTimer(curr))
+
+        if(self.Title_2.text() == "Pomodoro"):
+            global pomTimer
+            self.focus.setText(pomTimer.startTimer())
 
     def control2Clicked(self):
         if (self.Title_2.text() == "Normal"):
@@ -249,6 +256,15 @@ class Ui_MainWindow(object):
         elif (self.Title_2.text() == "Break"):
             self.Title_2.setText("Normal")
             self.control2.setText("break")
+        elif (self.Title_2.text() == "Pomodoro") or (self.Title_2.text() == "Long Break"):
+            self.Title_2.setText("Short Break")
+            self.Title_2.update()
+            self.focus.setText(pomTimer.setShortBreak())
+        elif (self.Title_2.text() == "Short Break"):
+            self.Title_2.setText("Pomodoro")
+            self.Title_2.update()
+            self.focus.setText(pomTimer.startTimer())
+
 
     def control3Clicked(self):
         global normalTimer
@@ -256,27 +272,41 @@ class Ui_MainWindow(object):
             normalTimer.goal +=1
             curr =  normalTimer.goal
             self.focus.setText(normalTimer.startTimer(curr))
+        elif (self.Title_2.text() == "Pomodoro") or (self.Title_2.text() == "Short Break"):
+            self.Title_2.setText("Long Break")
+            self.Title_2.update()
+            self.focus.setText(pomTimer.setLongBreak())
+        elif (self.Title_2.text() == "Long Break"):
+            self.Title_2.setText("Pomodoro")
+            self.Title_2.update()
+            self.focus.setText(pomTimer.startTimer())
+
 
     def on_release(self):
         self.timer.stop()
 
     def on_press(self):
         global on, normalTimer
-        if (self.Title_2.text() == "Normal"):
-            if(on):
-                on = False
+        if(on):
+            on = False
+            if (self.Title_2.text() == "Normal") or (self.Title_2.text() == "Break"):
                 self.focus.setText(normalTimer.getTimeString())
-            elif(not on):
-                on = True
+            elif (self.Title_2.text() == "Normal") or (self.Title_2.text() == "Long Break") or (self.Title_2.text() == "Short Break"):
+                global pomTimer
+                self.focus.setText(pomTimer.getTimeString())
+        elif(not on):
+            on = True
         self.timer.start(1000)
 
     def startStop(self):
-        if (self.Title_2.text() == "Normal") or (self.Title_2.text() == "Break"):
-            global on, normalTimer
-            if (self.Title_2.text() == "Normal"):
-                if(on):
-                    global normalTimer
-                    self.focus.setText(normalTimer.getTimeString())
+        global on, normalTimer
+        if(on):
+            if (self.Title_2.text() == "Normal") or (self.Title_2.text() == "Break"):
+                global normalTimer
+                self.focus.setText(normalTimer.getTimeString())
+            elif (self.Title_2.text() == "Normal") or (self.Title_2.text() == "Long Break")  or (self.Title_2.text() == "Short Break"):
+                global pomTimer
+                self.focus.setText(pomTimer.getTimeString())
 
 
 
