@@ -211,97 +211,116 @@ class Ui_MainWindow(object):
 
     # Timer Button Scripts
     def normalClicked(self):
-        self.resetType("Normal", "00:00")
+        self.Title_2.setText("Normal")
+        self.control1.setText("-")
+        self.control1.update()
+        self.control2.setText("break")
+        self.control2.update()
+        self.control3.setText("+")
+        self.control3.update()
+        self.focus.setText("00:00")
 
     def pomodoroClicked(self):
-        self.resetType("Pomodoro", "25:00")
+        self.Title_2.setText("Pomodoro")
+        self.control1.setText("pomodoro")
+        self.control1.update()
+        self.control2.setText("short break")
+        self.control2.update()
+        self.control3.setText("long break")
+        self.control3.update()
+        self.focus.setText("25:00")
 
     def fiftyClicked(self):
-        self.resetType("52 / 17", "52:00")
+        self.Title_2.setText("52 / 17")
+        self.control1.setText("52")
+        self.control1.update()
+        self.control2.setText("52/17")
+        self.control2.update()
+        self.control3.setText("17")
+        self.control3.update()
+        self.focus.setText("52:00")
 
-    # One File Methods (Fix Delay Issue)
     def control1Clicked(self):
-        global on
+        """if (self.Title_2.text() == "Normal"):
+            global normalTimer
+            if(normalTimer.goal > 0):
+                normalTimer.goal -= 1
+            curr = normalTimer.goal
+            self.focus.setText(normalTimer.startTimer(curr))
 
-        if(not on):
-            if (self.Title_2.text() == "Normal") or (self.Title_2.text() == "Break"):
-                self.setNormalTime(0, int(self.focus.text()[:2]))
-
-        elif (self.Title_2.text() == "Pomodoro") or (self.Title_2.text() == "Long Break") or (self.Title_2.text() == "Short Break"):
-            on = False
-            self.resetType("Pomodoro", "25:00")
+        if(self.Title_2.text() == "Pomodoro"):
+            global pomTimer
+            self.focus.setText(pomTimer.startTimer())"""
+        # One File Method (Fix Delay Issue)
+        if (self.Title_2.text() == "Normal"):
+            self.setNormalTime(0, self.focus.text()[:2])
 
 
     def control2Clicked(self):
-        global on
-        on = False
-
         if (self.Title_2.text() == "Normal"):
-            self.resetType("Break", "00:00")
-
+            self.Title_2.setText("Break")
+            self.control2.setText("timer")
         elif (self.Title_2.text() == "Break"):
-            self.resetType("Normal", "00:00")
-
-        elif (self.Title_2.text() == "Pomodoro") or (self.Title_2.text() == "Long Break") or (self.Title_2.text() == "Short Break"):
-            self.resetType("Short Break", "05:00")
+            self.Title_2.setText("Normal")
+            self.control2.setText("break")
+        elif (self.Title_2.text() == "Pomodoro") or (self.Title_2.text() == "Long Break"):
+            self.Title_2.setText("Short Break")
+            self.Title_2.update()
+            self.focus.setText(pomTimer.setShortBreak())
+        elif (self.Title_2.text() == "Short Break"):
+            self.Title_2.setText("Pomodoro")
+            self.Title_2.update()
+            self.focus.setText(pomTimer.startTimer())
 
 
     def control3Clicked(self):
-        global on
-
-
-        if (self.Title_2.text() == "Normal") or (self.Title_2.text() == "Break"):
-            if (not on):
-                self.setNormalTime(1, int(self.focus.text()[:2]))
-
-        elif (self.Title_2.text() == "Pomodoro") or (self.Title_2.text() == "Long Break") or (self.Title_2.text() == "Short Break"):
-            on = False
-            self.resetType("Long Break", "10:00")
+        global normalTimer
+        if(self.Title_2.text() == "Normal"):
+            normalTimer.goal +=1
+            curr =  normalTimer.goal
+            self.focus.setText(normalTimer.startTimer(curr))
+        elif (self.Title_2.text() == "Pomodoro") or (self.Title_2.text() == "Short Break"):
+            self.Title_2.setText("Long Break")
+            self.Title_2.update()
+            self.focus.setText(pomTimer.setLongBreak())
+        elif (self.Title_2.text() == "Long Break"):
+            self.Title_2.setText("Pomodoro")
+            self.Title_2.update()
+            self.focus.setText(pomTimer.startTimer())
 
 
     def on_release(self):
         self.timer.stop()
 
-
     def on_press(self):
-        global on
+        global on, normalTimer
         if(on):
             on = False
-            self.start_stop.setText("S T A R T")
-            self.start_stop.update()
-
+            if (self.Title_2.text() == "Normal") or (self.Title_2.text() == "Break"):
+                self.focus.setText(normalTimer.getTimeString())
+            elif (self.Title_2.text() == "Normal") or (self.Title_2.text() == "Long Break") or (self.Title_2.text() == "Short Break"):
+                global pomTimer
+                self.focus.setText(pomTimer.getTimeString())
         elif(not on):
-            if (int(self.focus.text()[:2]) > 0):
-                on = True
-                self.start_stop.setText("S T O P")
-                self.start_stop.update()
-
+            on = True
         self.timer.start(1000)
 
-
     def startStop(self):
-        global on
+        global on, normalTimer, pomTimer
         if(on):
-            min = int(self.focus.text()[:2])
-            sec = int(self.focus.text()[3:])
-
-            self.updateTime(min, sec)
-
+            if (self.Title_2.text() == "Normal") or (self.Title_2.text() == "Break"):
+                self.focus.setText(normalTimer.getTimeString())
+            elif (self.Title_2.text() == "Normal") or (self.Title_2.text() == "Long Break") or (self.Title_2.text() == "Short Break"):
+                self.focus.setText(pomTimer.getTimeString())
 
     # One File Timer Functions
     def setNormalTime(self, change, min):
-        if (self.Title_2.text() == "Normal") or (self.Title_2.text() == "Break"):
+        if (self.Title_2.text() == "Normal"):
             if(change == 0 and min > 0):
                 min -= 1;
-
-            elif(change == 1 and min < 60):
+            elif(change == 1):
                 min += 1;
-
-            if ( min / 10) < 1:
-                min = "0" + str(min)
-
-            self.focus.setText(str(min) + ":00")
-
+        return str(min) + ":00"
 
     def updateTime(self, min, sec):
         global on
@@ -321,37 +340,10 @@ class Ui_MainWindow(object):
             if ( sec / 10) < 1:
                 sec = "0" + str(sec)
 
-            self.focus.setText(str(min) + ":" + str(sec))
+            return str(min) + ":" + str(sec)
 
 
-    def resetType(self, name, tTime):
-        self.Title_2.setText(name)
-        self.Title_2.update()
-        self.focus.setText(tTime)
 
-        if(name == "Normal"):
-            self.control1.setText("-")
-            self.control2.setText("break")
-            self.control3.setText("+")
-
-        elif(name == "Break"):
-            self.control1.setText("-")
-            self.control2.setText("timer")
-            self.control3.setText("+")
-
-        elif (name == "Pomodoro") or (name == "Short Break") or (name == "Long Break"):
-            self.control1.setText("pomodoro")
-            self.control2.setText("short break")
-            self.control3.setText("long break")
-
-        elif(name == "52 / 17"):
-            self.control1.setText("52")
-            self.control2.setText("52/17")
-            self.control3.setText("17")
-
-        self.control1.update()
-        self.control2.update()
-        self.control3.update()
 
 
 if __name__ == "__main__":
