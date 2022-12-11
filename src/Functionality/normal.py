@@ -11,8 +11,10 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from timeit import default_timer as timer
 import timer_normal
+import timer_pomodoro
 
 normalTimer = timer_normal.Timer()
+pomTimer = timer_pomodoro.Pomodoro()
 on = False
 
 class Ui_MainWindow(object):
@@ -168,7 +170,11 @@ class Ui_MainWindow(object):
         self.start_stop.clicked.connect(self.on_press)
         self.start_stop.released.connect(self.on_release)
         self.timer.timeout.connect(self.startStop)
-        # self.runTimer()
+
+        # Switch Timers
+        self.customButton.clicked.connect(self.normalClicked)
+        self.pomodoroButton.clicked.connect(self.pomodoroClicked)
+        self.fifty17Button.clicked.connect(self.fiftyClicked)
 
 
     def retranslateUi(self, MainWindow):
@@ -204,6 +210,29 @@ class Ui_MainWindow(object):
         self.actionTheme.setShortcut(_translate("MainWindow", "Ctrl+T"))
 
     # Timer Button Scripts
+    def normalClicked(self):
+        self.control1.setText("-")
+        self.control1.update()
+        self.control2.setText("break")
+        self.control2.update()
+        self.control3.setText("+")
+        self.control3.update()
+
+    def pomodoroClicked(self):
+        self.control1.setText("pomodoro")
+        self.control1.update()
+        self.control2.setText("short break")
+        self.control2.update()
+        self.control3.setText("long break")
+        self.control3.update()
+
+    def fiftyClicked(self):
+        self.control1.setText("52")
+        self.control1.update()
+        self.control2.setText("52/17")
+        self.control2.update()
+        self.control3.setText("17")
+        self.control3.update()
 
     def control1Clicked(self):
         global normalTimer
