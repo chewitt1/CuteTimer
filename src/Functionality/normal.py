@@ -231,6 +231,10 @@ class Ui_MainWindow(object):
             on = False
             self.resetType("Pomodoro", "25:00")
 
+        elif (self.Title_2.text() == "52 / 17") or ("17 Break"):
+            on = False
+            self.resetType("52 / 17", "52:00")
+
 
     def control2Clicked(self):
         global on
@@ -245,6 +249,10 @@ class Ui_MainWindow(object):
         elif (self.Title_2.text() == "Pomodoro") or (self.Title_2.text() == "Long Break") or (self.Title_2.text() == "Short Break"):
             self.resetType("Short Break", "05:00")
 
+        elif (self.Title_2.text() == "52 / 17") or ("17 Break"):
+            on = False
+            self.resetType("52 / 17", "52:00")
+
 
     def control3Clicked(self):
         global on
@@ -257,6 +265,10 @@ class Ui_MainWindow(object):
         elif (self.Title_2.text() == "Pomodoro") or (self.Title_2.text() == "Long Break") or (self.Title_2.text() == "Short Break"):
             on = False
             self.resetType("Long Break", "10:00")
+
+        elif (self.Title_2.text() == "52 / 17") or ("17 Break"):
+            on = False
+            self.resetType("17 Break", "17:00")
 
 
     def on_release(self):
@@ -344,7 +356,7 @@ class Ui_MainWindow(object):
             self.control2.setText("short break")
             self.control3.setText("long break")
 
-        elif(name == "52 / 17"):
+        elif(name == "52 / 17") or (name == "17 Break"):
             self.control1.setText("52")
             self.control2.setText("52/17")
             self.control3.setText("17")
