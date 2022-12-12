@@ -5,6 +5,7 @@ A cute timer that I made because I was wondering why productivity had to be mini
 - Normal (minute-based) Timer
 - Pomodoro Timer
 - 52/17 Timer
+- Three Themes: Grey, Faded Pink, Pink
 
 ## Technical Details
 Made with
