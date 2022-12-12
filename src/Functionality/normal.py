@@ -9,8 +9,12 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtMultimedia import QMediaPlayer as qMedia
+from PyQt5.QtMultimedia import QMediaContent as qContent
+from PyQt5.QtMultimedia import QMediaPlaylist as qList
+
 from timeit import default_timer as timer
-import webbrowser
+import webbrowser, os
 # import timer_normal
 # import timer_pomodoro
 
@@ -18,6 +22,8 @@ import webbrowser
 # pomTimer = timer_pomodoro.Pomodoro()
 on = False
 theme = "Grey"
+
+print(os.path.join(os.getcwd(), 'BlippyTrance.mp3'))
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -173,6 +179,7 @@ class Ui_MainWindow(object):
         self.menubar.addAction(self.menuTimer.menuAction())
         self.menubar.addAction(self.menuOptions.menuAction())
         self.menubar.addAction(self.menuHelp.menuAction())
+        self.sound = qMedia()
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
@@ -198,7 +205,7 @@ class Ui_MainWindow(object):
         self.actionReset.triggered.connect(self.resetHandler)
         self.actionTheme.triggered.connect(self.switchTheme)
         self.actionHow_To.triggered.connect(self.openDocs)
-        self.actionCredits.triggered.connect(self.openDocs)
+        self.actionCredits.triggered.connect(self.alarmSound)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
@@ -233,6 +240,15 @@ class Ui_MainWindow(object):
         self.actionTheme.setText(_translate("MainWindow", "Theme"))
         self.actionTheme.setShortcut(_translate("MainWindow", "Ctrl+T"))
 
+
+    # Alarm Sound
+    def alarmSound(self):
+        audio_path = os.path.join(os.getcwd(), 'BlippyTrance.mp3')
+        url = QtCore.QUrl.fromLocalFile(audio_path)
+        content = qContent(url)
+        self.sound.setMedia(content)
+        self.sound.play()
+
     # Timer Button Scripts
     def normalClicked(self):
         self.resetType("Normal", "00:00")
@@ -259,7 +275,6 @@ class Ui_MainWindow(object):
             on = False
             self.resetType("52 / 17", "52:00")
 
-
     def control2Clicked(self):
         global on
         on = False
@@ -277,7 +292,6 @@ class Ui_MainWindow(object):
             on = False
             self.resetType("52 / 17", "52:00")
 
-
     def control3Clicked(self):
         global on
 
@@ -294,10 +308,8 @@ class Ui_MainWindow(object):
             on = False
             self.resetType("17 Break", "17:00")
 
-
     def on_release(self):
         self.timer.stop()
-
 
     def on_press(self):
         global on
@@ -314,7 +326,6 @@ class Ui_MainWindow(object):
 
         self.timer.start(1000)
 
-
     def startStop(self):
         global on
         if(on):
@@ -322,7 +333,6 @@ class Ui_MainWindow(object):
             sec = int(self.focus.text()[3:])
 
             self.updateTime(min, sec)
-
 
     # One File Timer Functions
     def setNormalTime(self, change, min):
@@ -337,7 +347,6 @@ class Ui_MainWindow(object):
                 min = "0" + str(min)
 
             self.focus.setText(str(min) + ":00")
-
 
     def updateTime(self, min, sec):
         global on
@@ -358,7 +367,6 @@ class Ui_MainWindow(object):
                 sec = "0" + str(sec)
 
             self.focus.setText(str(min) + ":" + str(sec))
-
 
     def resetType(self, name, tTime):
         self.Title_2.setText(name)
@@ -430,6 +438,7 @@ class Ui_MainWindow(object):
 
     def openDocs(self):
         webbrowser.open('https://github.com/chewitt1/CuteTimer#readme') #Go to my GitHub README
+
 
 
 if __name__ == "__main__":
