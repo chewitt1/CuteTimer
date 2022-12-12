@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">
@@ -21,6 +22,9 @@
       <width>470</width>
       <height>520</height>
      </rect>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
     </property>
     <property name="widgetResizable">
      <bool>true</bool>
@@ -155,6 +159,29 @@
        <set>Qt::AlignCenter</set>
       </property>
      </widget>
+     <widget class="QLabel" name="bkgrnd">
+      <property name="geometry">
+       <rect>
+        <x>-2</x>
+        <y>-1</y>
+        <width>470</width>
+        <height>520</height>
+       </rect>
+      </property>
+      <property name="autoFillBackground">
+       <bool>true</bool>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <zorder>bkgrnd</zorder>
+     <zorder>control2</zorder>
+     <zorder>focus</zorder>
+     <zorder>control1</zorder>
+     <zorder>start_stop</zorder>
+     <zorder>control3</zorder>
+     <zorder>Title_2</zorder>
     </widget>
    </widget>
    <widget class="QLabel" name="Title">

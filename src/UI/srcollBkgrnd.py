@@ -9,15 +9,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from timeit import default_timer as timer
-import webbrowser
-# import timer_normal
-# import timer_pomodoro
 
-# normalTimer = timer_normal.Timer()
-# pomTimer = timer_pomodoro.Pomodoro()
-on = False
-theme = "Grey"
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -177,29 +169,6 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
-        # Timer Control Trackers
-        self.control1.clicked.connect(self.control1Clicked)
-        self.control2.clicked.connect(self.control2Clicked)
-        self.control3.clicked.connect(self.control3Clicked)
-
-        self.start_stop.clicked.connect(self.on_press)
-        self.start_stop.released.connect(self.on_release)
-        self.timer.timeout.connect(self.startStop)
-
-        # Switch Timers
-        self.customButton.clicked.connect(self.normalClicked)
-        self.pomodoroButton.clicked.connect(self.pomodoroClicked)
-        self.fifty17Button.clicked.connect(self.fiftyClicked)
-
-        #Menu Bar
-        self.actionNormal.triggered.connect(self.normalClicked)
-        self.actionPomodoro.triggered.connect(self.pomodoroClicked)
-        self.actionFifty.triggered.connect(self.fiftyClicked)
-        self.actionReset.triggered.connect(self.resetHandler)
-        self.actionTheme.triggered.connect(self.switchTheme)
-        self.actionHow_To.triggered.connect(self.openDocs)
-        self.actionCredits.triggered.connect(self.openDocs)
-
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
@@ -210,7 +179,6 @@ class Ui_MainWindow(object):
         self.control3.setText(_translate("MainWindow", "+"))
         self.Title_2.setText(_translate("MainWindow", "Normal"))
         self.Title.setText(_translate("MainWindow", "Cute Timer"))
-        self.Title.raise_()
         self.Emoji.setText(_translate("MainWindow", "(✿◠‿◠) "))
         self.pomodoroButton.setText(_translate("MainWindow", "Pomodoro"))
         self.customButton.setText(_translate("MainWindow", "Normal"))
@@ -233,213 +201,11 @@ class Ui_MainWindow(object):
         self.actionTheme.setText(_translate("MainWindow", "Theme"))
         self.actionTheme.setShortcut(_translate("MainWindow", "Ctrl+T"))
 
-    # Timer Button Scripts
-    def normalClicked(self):
-        self.resetType("Normal", "00:00")
-
-    def pomodoroClicked(self):
-        self.resetType("Pomodoro", "25:00")
-
-    def fiftyClicked(self):
-        self.resetType("52 / 17", "52:00")
-
-    # One File Methods (Fix Delay Issue)
-    def control1Clicked(self):
-        global on
-
-        if(not on):
-            if (self.Title_2.text() == "Normal") or (self.Title_2.text() == "Break"):
-                self.setNormalTime(0, int(self.focus.text()[:2]))
-
-        elif (self.Title_2.text() == "Pomodoro") or (self.Title_2.text() == "Long Break") or (self.Title_2.text() == "Short Break"):
-            on = False
-            self.resetType("Pomodoro", "25:00")
-
-        elif (self.Title_2.text() == "52 / 17") or ("17 Break"):
-            on = False
-            self.resetType("52 / 17", "52:00")
-
-
-    def control2Clicked(self):
-        global on
-        on = False
-
-        if (self.Title_2.text() == "Normal"):
-            self.resetType("Break", "00:00")
-
-        elif (self.Title_2.text() == "Break"):
-            self.resetType("Normal", "00:00")
-
-        elif (self.Title_2.text() == "Pomodoro") or (self.Title_2.text() == "Long Break") or (self.Title_2.text() == "Short Break"):
-            self.resetType("Short Break", "05:00")
-
-        elif (self.Title_2.text() == "52 / 17") or ("17 Break"):
-            on = False
-            self.resetType("52 / 17", "52:00")
-
-
-    def control3Clicked(self):
-        global on
-
-
-        if (self.Title_2.text() == "Normal") or (self.Title_2.text() == "Break"):
-            if (not on):
-                self.setNormalTime(1, int(self.focus.text()[:2]))
-
-        elif (self.Title_2.text() == "Pomodoro") or (self.Title_2.text() == "Long Break") or (self.Title_2.text() == "Short Break"):
-            on = False
-            self.resetType("Long Break", "10:00")
-
-        elif (self.Title_2.text() == "52 / 17") or ("17 Break"):
-            on = False
-            self.resetType("17 Break", "17:00")
-
-
-    def on_release(self):
-        self.timer.stop()
-
-
-    def on_press(self):
-        global on
-        if(on):
-            on = False
-            self.start_stop.setText("S T A R T")
-            self.start_stop.update()
-
-        elif(not on):
-            if (int(self.focus.text()[:2]) > 0):
-                on = True
-                self.start_stop.setText("S T O P")
-                self.start_stop.update()
-
-        self.timer.start(1000)
-
-
-    def startStop(self):
-        global on
-        if(on):
-            min = int(self.focus.text()[:2])
-            sec = int(self.focus.text()[3:])
-
-            self.updateTime(min, sec)
-
-
-    # One File Timer Functions
-    def setNormalTime(self, change, min):
-        if (self.Title_2.text() == "Normal") or (self.Title_2.text() == "Break"):
-            if(change == 0 and min > 0):
-                min -= 1;
-
-            elif(change == 1 and min < 90):
-                min += 1;
-
-            if ( min / 10) < 1:
-                min = "0" + str(min)
-
-            self.focus.setText(str(min) + ":00")
-
-
-    def updateTime(self, min, sec):
-        global on
-        if(on):
-            if (sec > 0):
-                sec -= 1;
-            else:
-                if (min > 0):
-                    min -= 1;
-                    sec = 59
-                else:
-                    on = False;
-
-            if ( min / 10) < 1:
-                min = "0" + str(min)
-
-            if ( sec / 10) < 1:
-                sec = "0" + str(sec)
-
-            self.focus.setText(str(min) + ":" + str(sec))
-
-
-    def resetType(self, name, tTime):
-        self.Title_2.setText(name)
-        self.Title_2.update()
-        self.focus.setText(tTime)
-
-        if(name == "Normal"):
-            self.control1.setText("-")
-            self.control2.setText("break")
-            self.control3.setText("+")
-
-        elif(name == "Break"):
-            self.control1.setText("-")
-            self.control2.setText("timer")
-            self.control3.setText("+")
-
-        elif (name == "Pomodoro") or (name == "Short Break") or (name == "Long Break"):
-            self.control1.setText("pomodoro")
-            self.control2.setText("short break")
-            self.control3.setText("long break")
-
-        elif(name == "52 / 17") or (name == "17 Break"):
-            self.control1.setText("52")
-            self.control2.setText("52/17")
-            self.control3.setText("17")
-
-        self.control1.update()
-        self.control2.update()
-        self.control3.update()
-
-    def resetHandler(self):
-        global on
-        on = False
-        if(self.Title_2.text() == "Normal") or (self.Title_2.text() == "Break"):
-            self.resetType(self.Title_2.text(), "00:00")
-
-        elif (self.Title_2.text() == "Pomodoro"):
-            self.resetType(self.Title_2.text(), "25:00")
-
-        elif (self.Title_2.text() == "Long Break"):
-            self.resetType(self.Title_2.text(), "10:00")
-
-        elif (self.Title_2.text() == "Short Break"):
-            self.resetType(self.Title_2.text(), "05:00")
-
-        elif (self.Title_2.text() == "52 / 17"):
-            self.resetType(self.Title_2.text(), "52:00")
-
-        elif (self.Title_2.text() == "17 Break"):
-            self.resetType(self.Title_2.text(), "17:00")
-
-    def switchTheme(self):
-        global theme
-        if(theme == "Grey"):
-            theme = "FadedPink"
-            MainWindow.setStyleSheet("QWidget {background-color: #cfafb7}")
-            self.scrollAreaWidgetContents.setStyleSheet("QLabel {background-color: #cfbabf}")
-            self.menubar.setStyleSheet("border-bottom: 1px solid #977792")
-
-        elif(theme == "FadedPink"):
-            theme = "Pink"
-            MainWindow.setStyleSheet("background-color: pink")
-            self.scrollAreaWidgetContents.setStyleSheet("background-color: pink")
-
-        elif(theme == "Pink"):
-            theme = "Grey"
-            MainWindow.setStyleSheet("")
-            self.scrollAreaWidgetContents.setStyleSheet("")
-
-    def openDocs(self):
-        webbrowser.open('https://github.com/chewitt1/CuteTimer#readme') #Go to my GitHub README
-
 
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
-    app.setStyle('Windows')
     MainWindow = QtWidgets.QMainWindow()
-    # app.setStyleSheet("QLabel#bkgrnd {background-color: white}")
-
-
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow)
     MainWindow.show()

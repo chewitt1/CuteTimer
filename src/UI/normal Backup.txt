@@ -10,14 +10,12 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from timeit import default_timer as timer
-import webbrowser
-# import timer_normal
-# import timer_pomodoro
+import timer_normal
+import timer_pomodoro
 
-# normalTimer = timer_normal.Timer()
-# pomTimer = timer_pomodoro.Pomodoro()
+normalTimer = timer_normal.Timer()
+pomTimer = timer_pomodoro.Pomodoro()
 on = False
-theme = "Grey"
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -28,7 +26,6 @@ class Ui_MainWindow(object):
         self.centralwidget.setObjectName("centralwidget")
         self.view = QtWidgets.QScrollArea(self.centralwidget)
         self.view.setGeometry(QtCore.QRect(10, 10, 470, 520))
-        self.view.setAutoFillBackground(False)
         self.view.setWidgetResizable(True)
         self.view.setObjectName("view")
         self.scrollAreaWidgetContents = QtWidgets.QWidget()
@@ -77,18 +74,6 @@ class Ui_MainWindow(object):
         self.Title_2.setAutoFillBackground(False)
         self.Title_2.setAlignment(QtCore.Qt.AlignCenter)
         self.Title_2.setObjectName("Title_2")
-        self.bkgrnd = QtWidgets.QLabel(self.scrollAreaWidgetContents)
-        self.bkgrnd.setGeometry(QtCore.QRect(-2, -1, 470, 520))
-        self.bkgrnd.setAutoFillBackground(True)
-        self.bkgrnd.setText("")
-        self.bkgrnd.setObjectName("bkgrnd")
-        self.bkgrnd.raise_()
-        self.control2.raise_()
-        self.focus.raise_()
-        self.control1.raise_()
-        self.start_stop.raise_()
-        self.control3.raise_()
-        self.Title_2.raise_()
         self.view.setWidget(self.scrollAreaWidgetContents)
         self.Title = QtWidgets.QLabel(self.centralwidget)
         self.Title.setGeometry(QtCore.QRect(489, 10, 311, 91))
@@ -191,14 +176,6 @@ class Ui_MainWindow(object):
         self.pomodoroButton.clicked.connect(self.pomodoroClicked)
         self.fifty17Button.clicked.connect(self.fiftyClicked)
 
-        #Menu Bar
-        self.actionNormal.triggered.connect(self.normalClicked)
-        self.actionPomodoro.triggered.connect(self.pomodoroClicked)
-        self.actionFifty.triggered.connect(self.fiftyClicked)
-        self.actionReset.triggered.connect(self.resetHandler)
-        self.actionTheme.triggered.connect(self.switchTheme)
-        self.actionHow_To.triggered.connect(self.openDocs)
-        self.actionCredits.triggered.connect(self.openDocs)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
@@ -330,7 +307,7 @@ class Ui_MainWindow(object):
             if(change == 0 and min > 0):
                 min -= 1;
 
-            elif(change == 1 and min < 90):
+            elif(change == 1 and min < 60):
                 min += 1;
 
             if ( min / 10) < 1:
@@ -389,57 +366,13 @@ class Ui_MainWindow(object):
         self.control2.update()
         self.control3.update()
 
-    def resetHandler(self):
-        global on
-        on = False
-        if(self.Title_2.text() == "Normal") or (self.Title_2.text() == "Break"):
-            self.resetType(self.Title_2.text(), "00:00")
-
-        elif (self.Title_2.text() == "Pomodoro"):
-            self.resetType(self.Title_2.text(), "25:00")
-
-        elif (self.Title_2.text() == "Long Break"):
-            self.resetType(self.Title_2.text(), "10:00")
-
-        elif (self.Title_2.text() == "Short Break"):
-            self.resetType(self.Title_2.text(), "05:00")
-
-        elif (self.Title_2.text() == "52 / 17"):
-            self.resetType(self.Title_2.text(), "52:00")
-
-        elif (self.Title_2.text() == "17 Break"):
-            self.resetType(self.Title_2.text(), "17:00")
-
-    def switchTheme(self):
-        global theme
-        if(theme == "Grey"):
-            theme = "FadedPink"
-            MainWindow.setStyleSheet("QWidget {background-color: #cfafb7}")
-            self.scrollAreaWidgetContents.setStyleSheet("QLabel {background-color: #cfbabf}")
-            self.menubar.setStyleSheet("border-bottom: 1px solid #977792")
-
-        elif(theme == "FadedPink"):
-            theme = "Pink"
-            MainWindow.setStyleSheet("background-color: pink")
-            self.scrollAreaWidgetContents.setStyleSheet("background-color: pink")
-
-        elif(theme == "Pink"):
-            theme = "Grey"
-            MainWindow.setStyleSheet("")
-            self.scrollAreaWidgetContents.setStyleSheet("")
-
-    def openDocs(self):
-        webbrowser.open('https://github.com/chewitt1/CuteTimer#readme') #Go to my GitHub README
-
 
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
     app.setStyle('Windows')
     MainWindow = QtWidgets.QMainWindow()
-    # app.setStyleSheet("QLabel#bkgrnd {background-color: white}")
-
-
+    app.setStyleSheet("QWidget {background-color: pink}")
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow)
     MainWindow.show()
