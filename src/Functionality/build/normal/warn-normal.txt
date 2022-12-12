@@ -18,7 +18,7 @@ missing module named pyimod02_importers - imported by C:\Users\baba_\AppData\Loc
 missing module named pep517 - imported by importlib.metadata (delayed)
 missing module named 'org.python' - imported by copy (optional)
 missing module named org - imported by pickle (optional)
-missing module named pwd - imported by posixpath (delayed, conditional), subprocess (delayed, conditional, optional), shutil (delayed, optional), tarfile (optional), pathlib (delayed, optional), netrc (delayed, conditional), getpass (delayed)
+missing module named pwd - imported by posixpath (delayed, conditional), subprocess (delayed, conditional, optional), shutil (delayed, optional), tarfile (optional), pathlib (delayed, optional), netrc (delayed, conditional), getpass (delayed), webbrowser (delayed)
 missing module named grp - imported by subprocess (delayed, conditional, optional), shutil (delayed, optional), tarfile (optional), pathlib (delayed, optional)
 missing module named posix - imported by os (conditional, optional), shutil (conditional), importlib._bootstrap_external (conditional)
 missing module named resource - imported by posix (top-level)
