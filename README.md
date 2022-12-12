@@ -12,6 +12,7 @@ Made with
 - Python
 - PyQt5
 - PyQt Designer
+- PyInstaller
 
 ## Warning!
 - Pink may not be my favorite color but it felt right to make version 1.0 pink
