@@ -9,9 +9,8 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtMultimedia import QMediaPlayer as qMedia
-from PyQt5.QtMultimedia import QMediaContent as qContent
-from PyQt5.QtMultimedia import QMediaPlaylist as qList
+from PyQt5.QtMultimedia import QSound
+from PyQt5.QtWidgets import QMessageBox
 
 from timeit import default_timer as timer
 import webbrowser, os
@@ -22,8 +21,6 @@ import webbrowser, os
 # pomTimer = timer_pomodoro.Pomodoro()
 on = False
 theme = "Grey"
-
-print(os.path.join(os.getcwd(), 'BlippyTrance.mp3'))
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -179,7 +176,6 @@ class Ui_MainWindow(object):
         self.menubar.addAction(self.menuTimer.menuAction())
         self.menubar.addAction(self.menuOptions.menuAction())
         self.menubar.addAction(self.menuHelp.menuAction())
-        self.sound = qMedia()
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
@@ -205,7 +201,7 @@ class Ui_MainWindow(object):
         self.actionReset.triggered.connect(self.resetHandler)
         self.actionTheme.triggered.connect(self.switchTheme)
         self.actionHow_To.triggered.connect(self.openDocs)
-        self.actionCredits.triggered.connect(self.alarmSound)
+        self.actionCredits.triggered.connect(self.openDocs)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
@@ -242,12 +238,26 @@ class Ui_MainWindow(object):
 
 
     # Alarm Sound
-    def alarmSound(self):
-        audio_path = os.path.join(os.getcwd(), 'BlippyTrance.mp3')
-        url = QtCore.QUrl.fromLocalFile(audio_path)
-        content = qContent(url)
-        self.sound.setMedia(content)
-        self.sound.play()
+    def alarmPopup(self):
+        filename = os.path.join(os.getcwd(), "BlippyTrance.wav")
+        temp = QSound(filename)
+        temp.play()
+
+        msg = QMessageBox()
+        msg.setWindowTitle("Timer Completed!")
+        msg.setText("Your " + self.Title_2.text() + " timer is finished!")
+        msg.setIcon(QMessageBox.Information)
+
+        global theme
+
+        if (theme == "FadedPink"):
+            msg.setStyleSheet("background-color: #cfafb7")
+
+        elif (theme == "Pink"):
+            msg.setStyleSheet("background-color: pink")
+
+        x = msg.exec_()
+        temp.stop()
 
     # Timer Button Scripts
     def normalClicked(self):
@@ -350,6 +360,11 @@ class Ui_MainWindow(object):
 
     def updateTime(self, min, sec):
         global on
+        done = False
+
+        if(min == 0) and (sec == 1):
+            done = True
+
         if(on):
             if (sec > 0):
                 sec -= 1;
@@ -367,6 +382,12 @@ class Ui_MainWindow(object):
                 sec = "0" + str(sec)
 
             self.focus.setText(str(min) + ":" + str(sec))
+
+            if(done):
+                if(self.focus.text() == "00:00"):
+                    self.alarmPopup()
+
+
 
     def resetType(self, name, tTime):
         self.Title_2.setText(name)
