@@ -29,6 +29,9 @@ This is a learning project for me and I would love to learn from you, thank you.
 ## Code of Conduct
 See CODE_OF_CONDUCT.md
 
+## License
+ GNU GENERAL PUBLIC LICENSE, Version 3
+
 ## Future Plans
 - Different Themes
 - Windows 15 minute interval focus timer
