@@ -1,0 +1,966 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1000</width>
+    <height>750</height>
+   </rect>
+  </property>
+  <property name="font">
+   <font>
+    <pointsize>51</pointsize>
+   </font>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="autoFillBackground">
+   <bool>true</bool>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <property name="styleSheet">
+    <string notr="true">background-color: #967d8c</string>
+   </property>
+   <widget class="QFrame" name="taskbar">
+    <property name="geometry">
+     <rect>
+      <x>-1</x>
+      <y>718</y>
+      <width>1002</width>
+      <height>32</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: #E2C2C6</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QPushButton" name="Start">
+     <property name="geometry">
+      <rect>
+       <x>3</x>
+       <y>3</y>
+       <width>71</width>
+       <height>26</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>9</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Start</string>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>../../../WindowsGUI/Windows95/images/win95.png</normaloff>../../../WindowsGUI/Windows95/images/win95.png</iconset>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="Welcome">
+     <property name="geometry">
+      <rect>
+       <x>80</x>
+       <y>3</y>
+       <width>191</width>
+       <height>26</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>11</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <property name="text">
+      <string> Welcome</string>
+     </property>
+    </widget>
+    <widget class="QScrollArea" name="Sroll_Time">
+     <property name="geometry">
+      <rect>
+       <x>934</x>
+       <y>3</y>
+       <width>64</width>
+       <height>26</height>
+      </rect>
+     </property>
+     <property name="widgetResizable">
+      <bool>true</bool>
+     </property>
+     <widget class="QWidget" name="Sroll_TimeContents">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>62</width>
+        <height>24</height>
+       </rect>
+      </property>
+      <widget class="QLabel" name="currentTime">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>1</y>
+         <width>64</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>10:00 AM</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </widget>
+    </widget>
+   </widget>
+   <widget class="QFrame" name="app">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>30</y>
+      <width>791</width>
+      <height>600</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: #E2C2C6</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QWidget" name="appBar" native="true">
+     <property name="geometry">
+      <rect>
+       <x>1</x>
+       <y>1</y>
+       <width>787</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: #846075</string>
+     </property>
+     <widget class="QLabel" name="appName">
+      <property name="geometry">
+       <rect>
+        <x>3</x>
+        <y>5</y>
+        <width>101</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>9</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: white</string>
+      </property>
+      <property name="text">
+       <string>Cute Timer</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="appClose">
+      <property name="geometry">
+       <rect>
+        <x>760</x>
+        <y>3</y>
+        <width>25</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: #E2C2C6</string>
+      </property>
+      <property name="text">
+       <string>X</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QScrollArea" name="mainTimer">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>100</y>
+       <width>541</width>
+       <height>440</height>
+      </rect>
+     </property>
+     <property name="widgetResizable">
+      <bool>true</bool>
+     </property>
+     <widget class="QWidget" name="mainTimerChildren">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>539</width>
+        <height>438</height>
+       </rect>
+      </property>
+      <widget class="QStackedWidget" name="pages">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>550</width>
+         <height>440</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>9</pointsize>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true"/>
+       </property>
+       <property name="currentIndex">
+        <number>3</number>
+       </property>
+       <widget class="QWidget" name="page_home">
+        <property name="font">
+         <font>
+          <pointsize>15</pointsize>
+         </font>
+        </property>
+        <widget class="QLabel" name="welcome">
+         <property name="geometry">
+          <rect>
+           <x>50</x>
+           <y>30</y>
+           <width>471</width>
+           <height>181</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>Britannic Bold</family>
+           <pointsize>42</pointsize>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color:0; color: #ffdeda</string>
+         </property>
+         <property name="text">
+          <string>Cute
+Timer</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="pushButton">
+         <property name="geometry">
+          <rect>
+           <x>130</x>
+           <y>370</y>
+           <width>281</width>
+           <height>41</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>START A TIMER</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="bkgrnd">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>550</width>
+           <height>440</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="pixmap">
+          <pixmap>pixel.png</pixmap>
+         </property>
+        </widget>
+        <zorder>bkgrnd</zorder>
+        <zorder>pushButton</zorder>
+        <zorder>welcome</zorder>
+       </widget>
+       <widget class="QWidget" name="page_digital">
+        <widget class="QLabel" name="title_digital">
+         <property name="geometry">
+          <rect>
+           <x>30</x>
+           <y>10</y>
+           <width>481</width>
+           <height>151</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>Britannic Bold</family>
+           <pointsize>51</pointsize>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color:0; color: #ffdeda</string>
+         </property>
+         <property name="text">
+          <string>Focus Timer</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+        <widget class="QLabel" name="timeToGo">
+         <property name="geometry">
+          <rect>
+           <x>30</x>
+           <y>160</y>
+           <width>471</width>
+           <height>151</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>Century Gothic</family>
+           <pointsize>102</pointsize>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color:0; color: #ffdeda</string>
+         </property>
+         <property name="text">
+          <string>00:00</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+        <widget class="QLabel" name="bkgrnd_2">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>550</width>
+           <height>440</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="pixmap">
+          <pixmap>pixel.png</pixmap>
+         </property>
+        </widget>
+        <zorder>bkgrnd_2</zorder>
+        <zorder>title_digital</zorder>
+        <zorder>timeToGo</zorder>
+       </widget>
+       <widget class="QWidget" name="page_progress">
+        <widget class="QLabel" name="title_progress">
+         <property name="geometry">
+          <rect>
+           <x>30</x>
+           <y>10</y>
+           <width>481</width>
+           <height>151</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>Britannic Bold</family>
+           <pointsize>51</pointsize>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color:0; color: #ffdeda</string>
+         </property>
+         <property name="text">
+          <string>Focus Timer</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+        <widget class="QLabel" name="bkgrnd_3">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>550</width>
+           <height>440</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="pixmap">
+          <pixmap>pixel.png</pixmap>
+         </property>
+        </widget>
+        <widget class="QProgressBar" name="progressBar">
+         <property name="geometry">
+          <rect>
+           <x>40</x>
+           <y>140</y>
+           <width>461</width>
+           <height>21</height>
+          </rect>
+         </property>
+         <property name="value">
+          <number>24</number>
+         </property>
+         <property name="textVisible">
+          <bool>false</bool>
+         </property>
+        </widget>
+        <zorder>bkgrnd_3</zorder>
+        <zorder>title_progress</zorder>
+        <zorder>progressBar</zorder>
+       </widget>
+       <widget class="QWidget" name="page_done">
+        <widget class="QLabel" name="congrats">
+         <property name="geometry">
+          <rect>
+           <x>30</x>
+           <y>10</y>
+           <width>481</width>
+           <height>151</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>Britannic Bold</family>
+           <pointsize>51</pointsize>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color:0; color: #ffdeda</string>
+         </property>
+         <property name="text">
+          <string>Yay!</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+        <widget class="QLabel" name="bkgrnd_4">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>550</width>
+           <height>440</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="pixmap">
+          <pixmap>pixel.png</pixmap>
+         </property>
+        </widget>
+        <widget class="QLabel" name="congrats_2">
+         <property name="geometry">
+          <rect>
+           <x>40</x>
+           <y>180</y>
+           <width>481</width>
+           <height>151</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>Britannic Bold</family>
+           <pointsize>30</pointsize>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color:0; color: #ffdeda</string>
+         </property>
+         <property name="text">
+          <string>You completed your focus session!</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
+         </property>
+        </widget>
+        <zorder>bkgrnd_4</zorder>
+        <zorder>congrats</zorder>
+        <zorder>congrats_2</zorder>
+       </widget>
+      </widget>
+     </widget>
+    </widget>
+    <widget class="QGroupBox" name="theme">
+     <property name="geometry">
+      <rect>
+       <x>580</x>
+       <y>40</y>
+       <width>191</width>
+       <height>141</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string>Theme</string>
+     </property>
+     <widget class="QPushButton" name="pink">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>20</y>
+        <width>170</width>
+        <height>28</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>9</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Pink</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="green">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>60</y>
+        <width>170</width>
+        <height>28</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>9</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Green</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="grey">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>100</y>
+        <width>170</width>
+        <height>28</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>9</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Grey</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QGroupBox" name="display">
+     <property name="geometry">
+      <rect>
+       <x>580</x>
+       <y>190</y>
+       <width>191</width>
+       <height>121</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>9</pointsize>
+      </font>
+     </property>
+     <property name="title">
+      <string>Display</string>
+     </property>
+     <widget class="QRadioButton" name="digital">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>30</y>
+        <width>95</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>9</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Digital</string>
+      </property>
+     </widget>
+     <widget class="QRadioButton" name="progress">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>60</y>
+        <width>95</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>9</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Progress</string>
+      </property>
+     </widget>
+     <widget class="QRadioButton" name="checkpoint">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>90</y>
+        <width>95</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>9</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Checkpoint</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QGroupBox" name="settings">
+     <property name="geometry">
+      <rect>
+       <x>580</x>
+       <y>320</y>
+       <width>191</width>
+       <height>221</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>9</pointsize>
+      </font>
+     </property>
+     <property name="title">
+      <string>Settings</string>
+     </property>
+     <widget class="QCheckBox" name="sounds">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>90</y>
+        <width>121</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>9</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Alarm Sound</string>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="shortcuts">
+      <property name="geometry">
+       <rect>
+        <x>11</x>
+        <y>120</y>
+        <width>111</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>9</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Shortcuts</string>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="icons">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>150</y>
+        <width>121</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>9</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Desktop Icons</string>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="breaks">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>60</y>
+        <width>111</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>9</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Auto Breaks</string>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="focus">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>30</y>
+        <width>101</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>9</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Auto Focus</string>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="seamless">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>180</y>
+        <width>91</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>9</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Seamless</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QComboBox" name="listTimers">
+     <property name="geometry">
+      <rect>
+       <x>100</x>
+       <y>53</y>
+       <width>281</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>9</pointsize>
+      </font>
+     </property>
+     <item>
+      <property name="text">
+       <string>Choose Your Timer!</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Focus Timer (15 minute increments)</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Pomodoro (25/5/10 minutes)</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Class (50 minute lecture)</string>
+      </property>
+     </item>
+    </widget>
+    <widget class="QLabel" name="type">
+     <property name="geometry">
+      <rect>
+       <x>22</x>
+       <y>50</y>
+       <width>71</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Timer:</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="less">
+     <property name="geometry">
+      <rect>
+       <x>392</x>
+       <y>50</y>
+       <width>80</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <property name="text">
+      <string>-15</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="more">
+     <property name="geometry">
+      <rect>
+       <x>484</x>
+       <y>50</y>
+       <width>80</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>+15</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="start">
+     <property name="geometry">
+      <rect>
+       <x>490</x>
+       <y>560</y>
+       <width>90</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <property name="text">
+      <string>Start</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="reset">
+     <property name="geometry">
+      <rect>
+       <x>590</x>
+       <y>560</y>
+       <width>90</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <property name="text">
+      <string>Reset</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="setBreak">
+     <property name="geometry">
+      <rect>
+       <x>692</x>
+       <y>560</y>
+       <width>90</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <property name="text">
+      <string>Break</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label">
+     <property name="geometry">
+      <rect>
+       <x>80</x>
+       <y>560</y>
+       <width>321</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>8</pointsize>
+       <italic>false</italic>
+      </font>
+     </property>
+     <property name="text">
+      <string>Cute Timer 2.0 - A simple, yet cute Windows 95 timer</string>
+     </property>
+    </widget>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
