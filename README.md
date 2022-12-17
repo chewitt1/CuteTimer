@@ -27,7 +27,10 @@ Feel free to contribute/improve but please fork the repository before making any
 This is a learning project for me and I would love to learn from you, thank you. 
 
 ## Code of Conduct
-I don't have a code of conduct but I will make one if I have to. 
+See CODE_OF_CONDUCT.md
+
+## License
+ GNU GENERAL PUBLIC LICENSE, Version 3
 
 ## Future Plans
 - Different Themes
