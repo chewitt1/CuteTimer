@@ -132,6 +132,45 @@
       </widget>
      </widget>
     </widget>
+    <widget class="QScrollArea" name="Sroll_Time_2">
+     <property name="geometry">
+      <rect>
+       <x>834</x>
+       <y>3</y>
+       <width>64</width>
+       <height>26</height>
+      </rect>
+     </property>
+     <property name="widgetResizable">
+      <bool>true</bool>
+     </property>
+     <widget class="QWidget" name="Sroll_TimeContents_3">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>62</width>
+        <height>24</height>
+       </rect>
+      </property>
+      <widget class="QLabel" name="currentTime_3">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>1</y>
+         <width>64</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>10:00 AM</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </widget>
+    </widget>
    </widget>
    <widget class="QFrame" name="app">
     <property name="geometry">
@@ -252,7 +291,7 @@
         <string notr="true"/>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>3</number>
        </property>
        <widget class="QWidget" name="page_home">
         <property name="font">
@@ -263,7 +302,7 @@
         <widget class="QLabel" name="welcome">
          <property name="geometry">
           <rect>
-           <x>50</x>
+           <x>40</x>
            <y>30</y>
            <width>471</width>
            <height>181</height>
@@ -286,7 +325,7 @@ Timer</string>
           <set>Qt::AlignCenter</set>
          </property>
         </widget>
-        <widget class="QPushButton" name="pushButton">
+        <widget class="QPushButton" name="startTime">
          <property name="geometry">
           <rect>
            <x>130</x>
@@ -321,7 +360,7 @@ Timer</string>
          </property>
         </widget>
         <zorder>bkgrnd</zorder>
-        <zorder>pushButton</zorder>
+        <zorder>startTime</zorder>
         <zorder>welcome</zorder>
        </widget>
        <widget class="QWidget" name="page_digital">
@@ -337,14 +376,14 @@ Timer</string>
          <property name="font">
           <font>
            <family>Britannic Bold</family>
-           <pointsize>51</pointsize>
+           <pointsize>46</pointsize>
           </font>
          </property>
          <property name="styleSheet">
           <string notr="true">background-color:0; color: #ffdeda</string>
          </property>
          <property name="text">
-          <string>Focus Timer</string>
+          <string>Choose Timer</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -408,14 +447,14 @@ Timer</string>
          <property name="font">
           <font>
            <family>Britannic Bold</family>
-           <pointsize>51</pointsize>
+           <pointsize>46</pointsize>
           </font>
          </property>
          <property name="styleSheet">
           <string notr="true">background-color:0; color: #ffdeda</string>
          </property>
          <property name="text">
-          <string>Focus Timer</string>
+          <string>Choose Timer</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -445,23 +484,69 @@ Timer</string>
           <rect>
            <x>40</x>
            <y>140</y>
-           <width>461</width>
+           <width>501</width>
            <height>21</height>
           </rect>
          </property>
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color:#ffdeda; color: #ffdeda</string>
+         </property>
          <property name="value">
-          <number>24</number>
+          <number>0</number>
          </property>
          <property name="textVisible">
-          <bool>false</bool>
+          <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QLabel" name="progress_goal">
+         <property name="geometry">
+          <rect>
+           <x>250</x>
+           <y>170</y>
+           <width>31</width>
+           <height>51</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>32</pointsize>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color:0; color: #ffdeda</string>
+         </property>
+         <property name="text">
+          <string>0</string>
          </property>
         </widget>
         <zorder>bkgrnd_3</zorder>
         <zorder>title_progress</zorder>
         <zorder>progressBar</zorder>
+        <zorder>progress_goal</zorder>
        </widget>
-       <widget class="QWidget" name="page_done">
-        <widget class="QLabel" name="congrats">
+       <widget class="QWidget" name="page_checkpoint">
+        <widget class="QLabel" name="bkgrnd_4">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>540</width>
+           <height>440</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="pixmap">
+          <pixmap>pixel.png</pixmap>
+         </property>
+        </widget>
+        <widget class="QLabel" name="title_checkpoint">
          <property name="geometry">
           <rect>
            <x>30</x>
@@ -473,66 +558,88 @@ Timer</string>
          <property name="font">
           <font>
            <family>Britannic Bold</family>
-           <pointsize>51</pointsize>
+           <pointsize>46</pointsize>
           </font>
          </property>
          <property name="styleSheet">
           <string notr="true">background-color:0; color: #ffdeda</string>
          </property>
          <property name="text">
-          <string>Yay!</string>
+          <string>Choose Timer</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
          </property>
         </widget>
-        <widget class="QLabel" name="bkgrnd_4">
+        <widget class="QSlider" name="point1">
          <property name="geometry">
           <rect>
            <x>0</x>
-           <y>0</y>
-           <width>550</width>
-           <height>440</height>
+           <y>377</y>
+           <width>180</width>
+           <height>22</height>
           </rect>
          </property>
-         <property name="text">
-          <string/>
+         <property name="styleSheet">
+          <string notr="true">background-color:0; color: #ffdeda</string>
          </property>
-         <property name="pixmap">
-          <pixmap>pixel.png</pixmap>
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
          </property>
         </widget>
-        <widget class="QLabel" name="congrats_2">
+        <widget class="QSlider" name="point2">
          <property name="geometry">
           <rect>
-           <x>40</x>
-           <y>180</y>
-           <width>481</width>
-           <height>151</height>
+           <x>180</x>
+           <y>377</y>
+           <width>180</width>
+           <height>22</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color:0; color: #ffdeda</string>
+         </property>
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+        <widget class="QSlider" name="point3">
+         <property name="geometry">
+          <rect>
+           <x>360</x>
+           <y>377</y>
+           <width>180</width>
+           <height>22</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color:0; color: #ffdeda</string>
+         </property>
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+        <widget class="QLabel" name="checkpoint_goal">
+         <property name="geometry">
+          <rect>
+           <x>260</x>
+           <y>130</y>
+           <width>31</width>
+           <height>51</height>
           </rect>
          </property>
          <property name="font">
           <font>
-           <family>Britannic Bold</family>
-           <pointsize>30</pointsize>
+           <pointsize>32</pointsize>
           </font>
          </property>
          <property name="styleSheet">
           <string notr="true">background-color:0; color: #ffdeda</string>
          </property>
          <property name="text">
-          <string>You completed your focus session!</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-         <property name="wordWrap">
-          <bool>true</bool>
+          <string>0</string>
          </property>
         </widget>
-        <zorder>bkgrnd_4</zorder>
-        <zorder>congrats</zorder>
-        <zorder>congrats_2</zorder>
        </widget>
       </widget>
      </widget>
@@ -880,6 +987,18 @@ Timer</string>
      </property>
      <property name="text">
       <string>-15</string>
+     </property>
+     <property name="checkable">
+      <bool>false</bool>
+     </property>
+     <property name="checked">
+      <bool>false</bool>
+     </property>
+     <property name="default">
+      <bool>false</bool>
+     </property>
+     <property name="flat">
+      <bool>false</bool>
      </property>
     </widget>
     <widget class="QPushButton" name="more">
