@@ -291,7 +291,7 @@
         <string notr="true"/>
        </property>
        <property name="currentIndex">
-        <number>3</number>
+        <number>0</number>
        </property>
        <widget class="QWidget" name="page_home">
         <property name="font">
@@ -389,7 +389,7 @@ Timer</string>
           <set>Qt::AlignCenter</set>
          </property>
         </widget>
-        <widget class="QLabel" name="timeToGo">
+        <widget class="QLabel" name="goal_digital">
          <property name="geometry">
           <rect>
            <x>30</x>
@@ -432,7 +432,7 @@ Timer</string>
         </widget>
         <zorder>bkgrnd_2</zorder>
         <zorder>title_digital</zorder>
-        <zorder>timeToGo</zorder>
+        <zorder>goal_digital</zorder>
        </widget>
        <widget class="QWidget" name="page_progress">
         <widget class="QLabel" name="title_progress">
@@ -503,12 +503,12 @@ Timer</string>
           <bool>true</bool>
          </property>
         </widget>
-        <widget class="QLabel" name="progress_goal">
+        <widget class="QLabel" name="goal_progress">
          <property name="geometry">
           <rect>
-           <x>250</x>
-           <y>170</y>
-           <width>31</width>
+           <x>218</x>
+           <y>160</y>
+           <width>111</width>
            <height>51</height>
           </rect>
          </property>
@@ -523,11 +523,14 @@ Timer</string>
          <property name="text">
           <string>0</string>
          </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
         </widget>
         <zorder>bkgrnd_3</zorder>
         <zorder>title_progress</zorder>
         <zorder>progressBar</zorder>
-        <zorder>progress_goal</zorder>
+        <zorder>goal_progress</zorder>
        </widget>
        <widget class="QWidget" name="page_checkpoint">
         <widget class="QLabel" name="bkgrnd_4">
@@ -619,12 +622,12 @@ Timer</string>
           <enum>Qt::Horizontal</enum>
          </property>
         </widget>
-        <widget class="QLabel" name="checkpoint_goal">
+        <widget class="QLabel" name="goal_checkpoint">
          <property name="geometry">
           <rect>
-           <x>260</x>
+           <x>218</x>
            <y>130</y>
-           <width>31</width>
+           <width>111</width>
            <height>51</height>
           </rect>
          </property>
@@ -638,6 +641,9 @@ Timer</string>
          </property>
          <property name="text">
           <string>0</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
          </property>
         </widget>
        </widget>
