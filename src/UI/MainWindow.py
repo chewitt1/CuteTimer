@@ -5,12 +5,17 @@
     self.digital.setChecked(True)
     self.green.setEnabled(False)
     self.grey.setEnabled(False)
+    self.focus.setCheckable(False)
+    self.breaks.setCheckable(False)
 """
 import sys
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtWidgets import QMainWindow
+from PyQt5 import QtCore
 
 from version2 import Ui_MainWindow
+
+seamless = False
 
 
 class MainWindow:
@@ -28,6 +33,9 @@ class MainWindow:
         self.ui.digital.toggled.connect(self.setWindow)
         self.ui.progress.toggled.connect(self.setWindow)
         self.ui.checkpoint.toggled.connect(self.setWindow)
+
+        self.ui.icons.stateChanged.connect(self.setDesktopIcons)
+        self.ui.seamless.stateChanged.connect(self.setSeamless)
 
     def show(self):
         self.win.show()
@@ -286,6 +294,31 @@ class MainWindow:
                 if mins > 0:
                     self.ui.goal_checkpoint.setText(str(mins - 1))
                     self.ui.goal_checkpoint.update()
+
+    """def settings(self):
+        if self.ui.icons.isChecked():
+            self.setDesktopIcons()
+        elif self.ui.seamless.isChecked():
+            self.setSeamless()
+     if self.ui.focus.isChecked():
+            self.setAutoFocus()
+       elif self.ui.breaks.isChecked():
+            self.setAutoBreaks()
+       elif self.ui.breaks.isChecked():
+            self.setAutoBreaks()
+       elif self.ui.shortcuts.isChecked():
+            self.setShortcuts()
+    """
+
+    def setDesktopIcons(self):
+        if self.ui.icons.isChecked():
+            self.ui.desktop_icons.setVisible(True)
+        else:
+            self.ui.desktop_icons.setVisible(False)
+
+    def setSeamless(self):
+        flags = QtCore.Qt.WindowFlags(QtCore.Qt.FramelessWindowHint | QtCore.Qt.WindowStaysOnTopHint)
+        self.ui.MainWindow.setWindowFlags(flags)
 
 
 if __name__ == '__main__':

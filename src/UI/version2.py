@@ -330,12 +330,14 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setPointSize(9)
         self.breaks.setFont(font)
+        self.breaks.setStyleSheet("color: #d1d9e3")
         self.breaks.setObjectName("breaks")
         self.focus = QtWidgets.QCheckBox(self.settings)
         self.focus.setGeometry(QtCore.QRect(10, 30, 101, 20))
         font = QtGui.QFont()
         font.setPointSize(9)
         self.focus.setFont(font)
+        self.focus.setStyleSheet("color: #d1d9e3")
         self.focus.setObjectName("focus")
         self.seamless = QtWidgets.QCheckBox(self.settings)
         self.seamless.setGeometry(QtCore.QRect(10, 180, 91, 20))
@@ -538,7 +540,8 @@ class Ui_MainWindow(object):
         self.digital.setChecked(True)
         self.green.setEnabled(False)
         self.grey.setEnabled(False)
-
+        self.focus.setCheckable(False)
+        self.breaks.setCheckable(False)
 
 if __name__ == "__main__":
     import sys

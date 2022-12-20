@@ -880,6 +880,9 @@ Timer</string>
         <pointsize>9</pointsize>
        </font>
       </property>
+      <property name="styleSheet">
+       <string notr="true">color: #d1d9e3</string>
+      </property>
       <property name="text">
        <string>Auto Breaks</string>
       </property>
@@ -897,6 +900,9 @@ Timer</string>
        <font>
         <pointsize>9</pointsize>
        </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: #d1d9e3</string>
       </property>
       <property name="text">
        <string>Auto Focus</string>
