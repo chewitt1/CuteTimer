@@ -9,9 +9,12 @@
     self.breaks.setCheckable(False)
 """
 import sys
+from PyQt5 import QtCore, QtGui
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtWidgets import QMainWindow
-from PyQt5 import QtCore, QtGui
+from PyQt5.QtMultimedia import QSound
+from PyQt5.QtWidgets import QMessageBox
+import os
 
 from version2 import Ui_CuteTimer
 
@@ -110,6 +113,9 @@ class MainWindow:
             self.ui.goal_digital.setText(str(mins) + ":" + str(secs))
             self.ui.goal_digital.update()
 
+            if finit:
+                self.alarmPopup()
+
     def updateProgress(self):
         finit = False
         goal = int(self.ui.goal_progress.text()) * 60
@@ -122,6 +128,9 @@ class MainWindow:
 
         val = int((100 * self.timeElapsed) / goal)
         self.ui.progressBar.setProperty("value", val)
+
+        if finit:
+            self.alarmPopup()
 
     def updateCheckpoint(self):
         finit = False
@@ -143,6 +152,9 @@ class MainWindow:
             self.ui.point1.setProperty("value", 33)
             self.ui.point2.setProperty("value", 34)
             self.ui.point2.setProperty("value", val - 67)
+
+        if finit:
+            self.alarmPopup()
 
     def startProgram(self):
         self.go = True
@@ -423,6 +435,20 @@ class MainWindow:
 
         self.win.setWindowFlags(flags)
         self.win.show()
+
+    @staticmethod
+    def alarmPopup():
+        filename = os.path.join(os.getcwd(), "BlippyTrance.wav")
+        temp = QSound(filename)
+        temp.play()
+
+        msg = QMessageBox()
+        msg.setWindowTitle("Timer Completed!")
+        msg.setText("Your timer is finished!")
+        msg.setIcon(QMessageBox.Information)
+
+        x = msg.exec_()
+        temp.stop()
 
 
 if __name__ == '__main__':
