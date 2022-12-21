@@ -21,6 +21,7 @@ class MainWindow:
         self.go = False
         self.done = False
         self.on = False
+        self.isBreak = False
         self.long = False
         self.timer = QtCore.QTimer()
         self.win = QMainWindow()
@@ -30,8 +31,8 @@ class MainWindow:
 
         self.ui.startTime.clicked.connect(self.startProgram)
         self.ui.listTimers.currentIndexChanged.connect(lambda: self.setDisplay(0))
-        self.ui.less.clicked.connect(lambda: self.setGoal(1, 0))
-        self.ui.more.clicked.connect(lambda: self.setGoal(0, 0))
+        self.ui.less.clicked.connect(lambda: self.setGoal(1))
+        self.ui.more.clicked.connect(lambda: self.setGoal(0))
 
         self.ui.digital.toggled.connect(self.setWindow)
         self.ui.progress.toggled.connect(self.setWindow)
@@ -46,6 +47,7 @@ class MainWindow:
         self.ui.start.released.connect(self.stopSecond)
         self.timer.timeout.connect(self.updateTime)
         self.ui.reset.clicked.connect(self.setReset)
+        self.ui.setBreak.clicked.connect(lambda: self.setDisplay(1))
 
     def show(self):
         self.win.show()
@@ -154,6 +156,7 @@ class MainWindow:
 
     def setDigital(self, b):
         i = self.ui.listTimers.currentIndex()
+        self.isBreak = False
         if i == 0:
             self.ui.title_digital.setText("Choose Timer")
             self.ui.title_digital.update()
@@ -198,10 +201,11 @@ class MainWindow:
                 self.ui.more.setText("+1")
 
         elif b == 1:
+            self.isBreak = True
             if i == 1 or i == 3:
                 self.ui.title_digital.setText("Break Timer")
                 self.ui.title_digital.update()
-                self.ui.goal_digital.setText("5:00")
+                self.ui.goal_digital.setText("05:00")
                 self.ui.goal_digital.update()
 
                 self.ui.less.setEnabled(True)
@@ -321,7 +325,10 @@ class MainWindow:
         self.ui.point2.setProperty("value", 0)
         self.ui.point3.setProperty("value", 0)
 
-    def setGoal(self, c, b):
+    def setGoal(self, c):
+        b = 0
+        if self.isBreak:
+            b = 1
         if self.ui.digital.isChecked():
             self.setDigitalGoal(c, b)
         elif self.ui.progress.isChecked():
@@ -329,7 +336,7 @@ class MainWindow:
         elif self.ui.checkpoint.isChecked():
             self.setCheckpointGoal(c)
 
-    def setDigitalGoal(self, c, b):
+    def setDigitalGoal(self, c, b):  # In reverse order ):
         i = self.ui.listTimers.currentIndex()
         mins = int(self.ui.goal_digital.text().split(":")[0])
 
@@ -347,8 +354,12 @@ class MainWindow:
                     self.ui.goal_digital.setText(str(mins) + ":00")
                     self.ui.goal_digital.update()
 
+            elif i == 2 and b == 1:
+                self.long = True
+                self.setDigital(1)
+
         elif c == 1:
-            if i == 1:
+            if i == 1 and b == 0:
                 if mins > 15:
                     self.ui.goal_digital.setText(str(mins - 15) + ":00")
                     self.ui.goal_digital.update()
@@ -360,6 +371,10 @@ class MainWindow:
                         mins = "0" + str(mins)
                     self.ui.goal_digital.setText(str(mins) + ":00")
                     self.ui.goal_digital.update()
+
+            elif i == 2 and b == 1:
+                self.long = False
+                self.setDigital(1)
 
     def setProgressGoal(self, c):
         i = self.ui.listTimers.currentIndex()
