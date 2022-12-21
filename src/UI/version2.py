@@ -487,7 +487,7 @@ class Ui_CuteTimer(object):
         CuteTimer.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(CuteTimer)
-        self.pages.setCurrentIndex(3)
+        self.pages.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(CuteTimer)
 
     def retranslateUi(self, CuteTimer):
