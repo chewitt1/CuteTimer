@@ -121,7 +121,7 @@ class MainWindow:
             finit = True
 
         val = int((100 * self.timeElapsed) / goal)
-        self.ui.point1.setProperty("value", val)
+        self.ui.progressBar.setProperty("value", val)
 
     def updateCheckpoint(self):
         finit = False
@@ -134,7 +134,8 @@ class MainWindow:
             finit = True
 
         val = int((100 * self.timeElapsed) / goal)
-        self.ui.progressBar.setProperty("value", val)
+        self.ui.point1.setProperty("value", val)
+
 
     def startProgram(self):
         self.go = True
