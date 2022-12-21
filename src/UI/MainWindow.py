@@ -26,6 +26,8 @@ class MainWindow:
         self.on = False
         self.isBreak = False
         self.long = False
+        self.autoStop = False
+        self.alarmSound = True
         self.timeElapsed = 0
         self.timer = QtCore.QTimer()
         self.win = QMainWindow()
@@ -42,6 +44,8 @@ class MainWindow:
         self.ui.progress.toggled.connect(self.setWindow)
         self.ui.checkpoint.toggled.connect(self.setWindow)
 
+        self.ui.stop.stateChanged.connect(self.setAutoStop)
+        self.ui.sounds.stateChanged.connect(self.setSounds)
         self.ui.icons.stateChanged.connect(self.setDesktopIcons)
         self.ui.seamless.stateChanged.connect(self.setSeamless)
 
@@ -104,7 +108,7 @@ class MainWindow:
                 if mins > 0:
                     mins -= 1
                     secs = 59
-            if (mins / 10) < 1 :
+            if (mins / 10) < 1:
                 mins = "0" + str(mins)
 
             if (secs / 10) < 1:
@@ -421,6 +425,12 @@ class MainWindow:
                 self.long = False
                 self.setOther(1)
 
+    def setAutoStop(self):
+        self.autoStop = not self.autoStop
+
+    def setSounds(self):
+        self.alarmSound = not self.alarmSound
+
     def setDesktopIcons(self):
         if self.ui.icons.isChecked():
             self.ui.desktop_icons.setVisible(True)
@@ -440,15 +450,21 @@ class MainWindow:
     def alarmPopup():
         filename = os.path.join(os.getcwd(), "BlippyTrance.wav")
         temp = QSound(filename)
-        temp.play()
+
+        if self.alarmSound:
+            temp.play()
 
         msg = QMessageBox()
         msg.setWindowTitle("Timer Completed!")
         msg.setText("Your timer is finished!")
         msg.setIcon(QMessageBox.Information)
+        
+        """If auto stop: force close msg box"""
 
         x = msg.exec_()
-        temp.stop()
+
+        if self.alarmSound:
+            temp.stop()
 
 
 if __name__ == '__main__':
