@@ -112,8 +112,21 @@ class MainWindow:
 
     def updateProgress(self):
         finit = False
-
         goal = int(self.ui.goal_progress.text()) * 60
+
+        if self.timeElapsed < goal:
+            self.timeElapsed += 1
+
+        if self.timeElapsed == goal:
+            finit = True
+
+        val = int((100 * self.timeElapsed) / goal)
+        self.ui.point1.setProperty("value", val)
+
+    def updateCheckpoint(self):
+        finit = False
+        goal = int(self.ui.goal_checkpoint.text()) * 60
+
         if self.timeElapsed < goal:
             self.timeElapsed += 1
 
@@ -122,18 +135,6 @@ class MainWindow:
 
         val = int((100 * self.timeElapsed) / goal)
         self.ui.progressBar.setProperty("value", val)
-
-    def updateCheckpoint(self):
-        if self.on:
-            finit = False
-            mins = int(self.ui.goal_checkpoint.text())
-
-            if mins > 0:
-                self.ui.goal_checkpoint.setText(str(mins - 1))
-                self.ui.goal_checkpoint.update()
-
-            if mins == 0:
-                finit = True
 
     def startProgram(self):
         self.go = True
