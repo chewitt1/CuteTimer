@@ -21,6 +21,7 @@ class MainWindow:
         self.go = False
         self.done = False
         self.on = False
+        self.long = False
         self.timer = QtCore.QTimer()
         self.win = QMainWindow()
         self.win.setWindowIcon(QtGui.QIcon('./images/Alarm_Pink.ico'))
@@ -28,9 +29,9 @@ class MainWindow:
         self.ui.setupUi(self.win)
 
         self.ui.startTime.clicked.connect(self.startProgram)
-        self.ui.listTimers.currentIndexChanged.connect(self.setDisplay)
-        self.ui.less.clicked.connect(lambda: self.setGoal(1))
-        self.ui.more.clicked.connect(lambda: self.setGoal(0))
+        self.ui.listTimers.currentIndexChanged.connect(lambda: self.setDisplay(0))
+        self.ui.less.clicked.connect(lambda: self.setGoal(1, 0))
+        self.ui.more.clicked.connect(lambda: self.setGoal(0, 0))
 
         self.ui.digital.toggled.connect(self.setWindow)
         self.ui.progress.toggled.connect(self.setWindow)
@@ -79,7 +80,7 @@ class MainWindow:
         self.on = False
         self.ui.start.setText("start")
         self.ui.start.update()
-        self.setDisplay()
+        self.setDisplay(0)
 
     def updateDigital(self):
         if self.on:
@@ -141,19 +142,18 @@ class MainWindow:
                 self.ui.pages.setCurrentIndex(2)
             elif self.ui.checkpoint.isChecked():
                 self.ui.pages.setCurrentIndex(3)
-            self.setDisplay()
+            self.setDisplay(0)
 
-    def setDisplay(self):
+    def setDisplay(self, b):
         if self.ui.digital.isChecked():
-            self.setDigital()
+            self.setDigital(b)
         elif self.ui.progress.isChecked():
             self.setProgress()
         elif self.ui.checkpoint.isChecked():
             self.setCheckpoint()
 
-    def setDigital(self):
+    def setDigital(self, b):
         i = self.ui.listTimers.currentIndex()
-
         if i == 0:
             self.ui.title_digital.setText("Choose Timer")
             self.ui.title_digital.update()
@@ -163,38 +163,67 @@ class MainWindow:
             self.ui.less.setEnabled(False)
             self.ui.more.setEnabled(False)
 
-        elif i == 1:
-            self.ui.title_digital.setText("Focus Timer")
-            self.ui.title_digital.update()
-            self.ui.goal_digital.setText("15:00")
-            self.ui.goal_digital.update()
+        elif b == 0:
+            if i == 1:
+                self.ui.title_digital.setText("Focus Timer")
+                self.ui.title_digital.update()
+                self.ui.goal_digital.setText("15:00")
+                self.ui.goal_digital.update()
 
-            self.ui.less.setEnabled(True)
-            self.ui.more.setEnabled(True)
-            self.ui.less.setText("-15")
-            self.ui.more.setText("+15")
+                self.ui.less.setEnabled(True)
+                self.ui.more.setEnabled(True)
+                self.ui.less.setText("-15")
+                self.ui.more.setText("+15")
 
-        elif i == 2:
-            self.ui.title_digital.setText("Pomodoro Timer")
-            self.ui.title_digital.update()
-            self.ui.goal_digital.setText("25:00")
-            self.ui.goal_digital.update()
+            elif i == 2:
+                self.ui.title_digital.setText("Pomodoro Timer")
+                self.ui.title_digital.update()
+                self.ui.goal_digital.setText("25:00")
+                self.ui.goal_digital.update()
 
-            self.ui.less.setEnabled(False)
-            self.ui.more.setEnabled(False)
-            self.ui.less.setText("short")
-            self.ui.more.setText("long")
+                self.ui.less.setEnabled(False)
+                self.ui.more.setEnabled(False)
+                self.ui.less.setText("short")
+                self.ui.more.setText("long")
 
-        elif i == 3:
-            self.ui.title_digital.setText("Class Timer")
-            self.ui.title_digital.update()
-            self.ui.goal_digital.setText("50:00")
-            self.ui.goal_digital.update()
+            elif i == 3:
+                self.ui.title_digital.setText("Class Timer")
+                self.ui.title_digital.update()
+                self.ui.goal_digital.setText("50:00")
+                self.ui.goal_digital.update()
 
-            self.ui.less.setEnabled(True)
-            self.ui.more.setEnabled(True)
-            self.ui.less.setText("-1")
-            self.ui.more.setText("+1")
+                self.ui.less.setEnabled(True)
+                self.ui.more.setEnabled(True)
+                self.ui.less.setText("-1")
+                self.ui.more.setText("+1")
+
+        elif b == 1:
+            if i == 1 or i == 3:
+                self.ui.title_digital.setText("Break Timer")
+                self.ui.title_digital.update()
+                self.ui.goal_digital.setText("5:00")
+                self.ui.goal_digital.update()
+
+                self.ui.less.setEnabled(True)
+                self.ui.more.setEnabled(True)
+                self.ui.less.setText("-1")
+                self.ui.more.setText("+1")
+
+            elif i == 2:
+                if self.long:
+                    self.ui.title_digital.setText("Long Break")
+                    self.ui.goal_digital.setText("10:00")
+                else:
+                    self.ui.title_digital.setText("Short Break")
+                    self.ui.goal_digital.setText("05:00")
+
+                self.ui.title_digital.update()
+                self.ui.goal_digital.update()
+
+                self.ui.less.setEnabled(True)
+                self.ui.more.setEnabled(True)
+                self.ui.less.setText("short")
+                self.ui.more.setText("long")
 
     def setProgress(self):
         i = self.ui.listTimers.currentIndex()
@@ -292,25 +321,25 @@ class MainWindow:
         self.ui.point2.setProperty("value", 0)
         self.ui.point3.setProperty("value", 0)
 
-    def setGoal(self, c):
+    def setGoal(self, c, b):
         if self.ui.digital.isChecked():
-            self.setDigitalGoal(c)
+            self.setDigitalGoal(c, b)
         elif self.ui.progress.isChecked():
             self.setProgressGoal(c)
         elif self.ui.checkpoint.isChecked():
             self.setCheckpointGoal(c)
 
-    def setDigitalGoal(self, c):
+    def setDigitalGoal(self, c, b):
         i = self.ui.listTimers.currentIndex()
         mins = int(self.ui.goal_digital.text().split(":")[0])
 
         if c == 0:
-            if i == 1:
+            if i == 1 and b == 0:
                 if mins < 240:
                     self.ui.goal_digital.setText(str(mins + 15) + ":00")
                     self.ui.goal_digital.update()
 
-            elif i == 3:
+            elif i == 3 or (i == 1 and b == 1):
                 if mins < 360:
                     mins += 1
                     if (mins / 10) < 1:
@@ -324,7 +353,7 @@ class MainWindow:
                     self.ui.goal_digital.setText(str(mins - 15) + ":00")
                     self.ui.goal_digital.update()
 
-            elif i == 3:
+            elif i == 3 or (i == 1 and b == 1):
                 if mins > 0:
                     mins -= 1
                     if (mins / 10) < 1:
@@ -398,7 +427,6 @@ class MainWindow:
 
         self.win.setWindowFlags(flags)
         self.win.show()
-
 
 
 if __name__ == '__main__':
