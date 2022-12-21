@@ -295,7 +295,7 @@
         <string notr="true"/>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>3</number>
        </property>
        <widget class="QWidget" name="page_home">
         <property name="font">
@@ -590,6 +590,9 @@ Timer</string>
          <property name="styleSheet">
           <string notr="true">background-color:0; color: #ffdeda</string>
          </property>
+         <property name="maximum">
+          <number>33</number>
+         </property>
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
@@ -606,6 +609,9 @@ Timer</string>
          <property name="styleSheet">
           <string notr="true">background-color:0; color: #ffdeda</string>
          </property>
+         <property name="maximum">
+          <number>34</number>
+         </property>
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
@@ -621,6 +627,9 @@ Timer</string>
          </property>
          <property name="styleSheet">
           <string notr="true">background-color:0; color: #ffdeda</string>
+         </property>
+         <property name="maximum">
+          <number>33</number>
          </property>
          <property name="orientation">
           <enum>Qt::Horizontal</enum>

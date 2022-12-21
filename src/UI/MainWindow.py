@@ -23,6 +23,7 @@ class MainWindow:
         self.on = False
         self.isBreak = False
         self.long = False
+        self.timeElapsed = 0
         self.timer = QtCore.QTimer()
         self.win = QMainWindow()
         self.win.setWindowIcon(QtGui.QIcon('./images/Alarm_Pink.ico'))
@@ -74,9 +75,9 @@ class MainWindow:
             if self.ui.digital.isChecked():
                 self.updateDigital()
             elif self.ui.progress.isChecked():
-                self.updateProgressCheckpoint(0)
+                self.updateProgress()
             elif self.ui.checkpoint.isChecked():
-                self.updateProgressCheckpoint(1)
+                self.updateCheckpoint()
 
     def setReset(self):
         self.on = False
@@ -109,21 +110,27 @@ class MainWindow:
             self.ui.goal_digital.setText(str(mins) + ":" + str(secs))
             self.ui.goal_digital.update()
 
-    def updateProgressCheckpoint(self, num):
+    def updateProgress(self):
+        finit = False
+
+        goal = int(self.ui.goal_progress.text()) * 60
+        if self.timeElapsed < goal:
+            self.timeElapsed += 1
+
+        if self.timeElapsed == goal:
+            finit = True
+
+        val = int((100 * self.timeElapsed) / goal)
+        self.ui.progressBar.setProperty("value", val)
+
+    def updateCheckpoint(self):
         if self.on:
             finit = False
-            if num == 0:
-                mins = int(self.ui.goal_progress.text())
-            elif num == 1:
-                mins = int(self.ui.goal_checkpoint.text())
+            mins = int(self.ui.goal_checkpoint.text())
 
             if mins > 0:
-                if num == 0:
-                    self.ui.goal_progress.setText(str(mins - 1))
-                    self.ui.goal_progress.update()
-                elif num == 1:
-                    self.ui.goal_checkpoint.setText(str(mins - 1))
-                    self.ui.goal_checkpoint.update()
+                self.ui.goal_checkpoint.setText(str(mins - 1))
+                self.ui.goal_checkpoint.update()
 
             if mins == 0:
                 finit = True
@@ -410,6 +417,7 @@ class MainWindow:
     def setProgressGoal(self, c, b):
         i = self.ui.listTimers.currentIndex()
         mins = int(self.ui.goal_progress.text())
+        self.timeElapsed = 0
 
         if c == 0:
             if i == 1 and b == 0:
@@ -444,6 +452,7 @@ class MainWindow:
     def setCheckpointGoal(self, c):
         i = self.ui.listTimers.currentIndex()
         mins = int(self.ui.goal_checkpoint.text())
+        self.timeElapsed = 0
 
         if c == 0:
             if i == 1:

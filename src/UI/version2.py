@@ -235,16 +235,19 @@ class Ui_CuteTimer(object):
         self.point1 = QtWidgets.QSlider(self.page_checkpoint)
         self.point1.setGeometry(QtCore.QRect(0, 377, 180, 22))
         self.point1.setStyleSheet("background-color:0; color: #ffdeda")
+        self.point1.setMaximum(33)
         self.point1.setOrientation(QtCore.Qt.Horizontal)
         self.point1.setObjectName("point1")
         self.point2 = QtWidgets.QSlider(self.page_checkpoint)
         self.point2.setGeometry(QtCore.QRect(180, 377, 180, 22))
         self.point2.setStyleSheet("background-color:0; color: #ffdeda")
+        self.point2.setMaximum(34)
         self.point2.setOrientation(QtCore.Qt.Horizontal)
         self.point2.setObjectName("point2")
         self.point3 = QtWidgets.QSlider(self.page_checkpoint)
         self.point3.setGeometry(QtCore.QRect(360, 377, 180, 22))
         self.point3.setStyleSheet("background-color:0; color: #ffdeda")
+        self.point3.setMaximum(33)
         self.point3.setOrientation(QtCore.Qt.Horizontal)
         self.point3.setObjectName("point3")
         self.goal_checkpoint = QtWidgets.QLabel(self.page_checkpoint)
@@ -484,7 +487,7 @@ class Ui_CuteTimer(object):
         CuteTimer.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(CuteTimer)
-        self.pages.setCurrentIndex(0)
+        self.pages.setCurrentIndex(3)
         QtCore.QMetaObject.connectSlotsByName(CuteTimer)
 
     def retranslateUi(self, CuteTimer):
