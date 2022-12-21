@@ -1,5 +1,5 @@
 """ To add tp ui/py file:
-    MainWindow.setFixedSize(900, 675)
+    CuteTimer.setFixedSize(900, 675)
     self.less.setEnabled(False)
     self.more.setEnabled(False)
     self.digital.setChecked(True)
@@ -11,18 +11,20 @@
 import sys
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtWidgets import QMainWindow
-from PyQt5 import QtCore
+from PyQt5 import QtCore, QtGui
 
-from version2 import Ui_MainWindow
-
-seamless = False
+from version2 import Ui_CuteTimer
 
 
 class MainWindow:
     def __init__(self):
         self.go = False
+        self.done = False
+        self.on = False
+        self.timer = QtCore.QTimer()
         self.win = QMainWindow()
-        self.ui = Ui_MainWindow()
+        self.win.setWindowIcon(QtGui.QIcon('./images/Alarm_Pink.ico'))
+        self.ui = Ui_CuteTimer()
         self.ui.setupUi(self.win)
 
         self.ui.startTime.clicked.connect(self.startProgram)
@@ -37,12 +39,99 @@ class MainWindow:
         self.ui.icons.stateChanged.connect(self.setDesktopIcons)
         self.ui.seamless.stateChanged.connect(self.setSeamless)
 
+        self.ui.appExit.clicked.connect(self.endIt)
+
+        self.ui.start.clicked.connect(self.startSecond)
+        self.ui.start.released.connect(self.stopSecond)
+        self.timer.timeout.connect(self.updateTime)
+        self.ui.reset.clicked.connect(self.setReset)
+
     def show(self):
         self.win.show()
+
+    def startSecond(self):
+        i = self.ui.listTimers.currentIndex()
+        if self.on:
+            self.on = False
+            self.ui.start.setText("start")
+            self.ui.start.update()
+        elif not self.on and (i > 0):
+            if self.go:
+                self.on = True
+                self.ui.start.setText("stop")
+                self.ui.start.update()
+                self.timer.start(1000)
+
+    def stopSecond(self):
+        self.timer.stop()
+
+    def updateTime(self):
+        i = self.ui.listTimers.currentIndex()
+        if self.on and (i > 0):
+            if self.ui.digital.isChecked():
+                self.updateDigital()
+            elif self.ui.progress.isChecked():
+                self.updateProgressCheckpoint(0)
+            elif self.ui.checkpoint.isChecked():
+                self.updateProgressCheckpoint(1)
+
+    def setReset(self):
+        self.on = False
+        self.ui.start.setText("start")
+        self.ui.start.update()
+        self.setDisplay()
+
+    def updateDigital(self):
+        if self.on:
+            mins = int(self.ui.goal_digital.text().split(":")[0])
+            secs = int(self.ui.goal_digital.text().split(":")[1])
+
+            finit = False
+
+            if (mins == 0) and (secs == 1):
+                finit = True
+
+            if secs > 0:
+                secs -= 1
+            else:
+                if mins > 0:
+                    mins -= 1
+                    secs = 59
+            if (mins / 10) < 1 :
+                mins = "0" + str(mins)
+
+            if (secs / 10) < 1:
+                secs = "0" + str(secs)
+
+            self.ui.goal_digital.setText(str(mins) + ":" + str(secs))
+            self.ui.goal_digital.update()
+
+    def updateProgressCheckpoint(self, num):
+        if self.on:
+            finit = False
+            if num == 0:
+                mins = int(self.ui.goal_progress.text())
+            elif num == 1:
+                mins = int(self.ui.goal_checkpoint.text())
+
+            if mins > 0:
+                if num == 0:
+                    self.ui.goal_progress.setText(str(mins - 1))
+                    self.ui.goal_progress.update()
+                elif num == 1:
+                    self.ui.goal_checkpoint.setText(str(mins - 1))
+                    self.ui.goal_checkpoint.update()
+
+            if mins == 0:
+                finit = True
 
     def startProgram(self):
         self.go = True
         self.setWindow()
+
+    @staticmethod
+    def endIt():
+        sys.exit()
 
     def setWindow(self):  # 0 = home, 1 = digital, 2 = progress, 3 = done
         if self.go:
@@ -295,21 +384,6 @@ class MainWindow:
                     self.ui.goal_checkpoint.setText(str(mins - 1))
                     self.ui.goal_checkpoint.update()
 
-    """def settings(self):
-        if self.ui.icons.isChecked():
-            self.setDesktopIcons()
-        elif self.ui.seamless.isChecked():
-            self.setSeamless()
-     if self.ui.focus.isChecked():
-            self.setAutoFocus()
-       elif self.ui.breaks.isChecked():
-            self.setAutoBreaks()
-       elif self.ui.breaks.isChecked():
-            self.setAutoBreaks()
-       elif self.ui.shortcuts.isChecked():
-            self.setShortcuts()
-    """
-
     def setDesktopIcons(self):
         if self.ui.icons.isChecked():
             self.ui.desktop_icons.setVisible(True)
@@ -317,8 +391,14 @@ class MainWindow:
             self.ui.desktop_icons.setVisible(False)
 
     def setSeamless(self):
-        flags = QtCore.Qt.WindowFlags(QtCore.Qt.FramelessWindowHint | QtCore.Qt.WindowStaysOnTopHint)
-        self.ui.MainWindow.setWindowFlags(flags)
+        if self.ui.seamless.isChecked():
+            flags = QtCore.Qt.WindowFlags(QtCore.Qt.FramelessWindowHint | QtCore.Qt.WindowStaysOnTopHint)
+        else:
+            flags = QtCore.Qt.WindowFlags(QtCore.Qt.WindowCloseButtonHint | QtCore.Qt.WindowMinimizeButtonHint)
+
+        self.win.setWindowFlags(flags)
+        self.win.show()
+
 
 
 if __name__ == '__main__':

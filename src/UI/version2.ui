@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>MainWindow</class>
- <widget class="QMainWindow" name="MainWindow">
+ <class>CuteTimer</class>
+ <widget class="QMainWindow" name="CuteTimer">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -17,6 +17,10 @@
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>images/Alarm_Pink.png</normaloff>images/Alarm_Pink.png</iconset>
   </property>
   <property name="autoFillBackground">
    <bool>true</bool>
@@ -225,7 +229,7 @@
        <string>Cute Timer</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="appClose">
+     <widget class="QPushButton" name="appExit">
       <property name="geometry">
        <rect>
         <x>760</x>
@@ -810,7 +814,7 @@ Timer</string>
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>90</y>
+        <y>120</y>
         <width>121</width>
         <height>20</height>
        </rect>
@@ -827,11 +831,11 @@ Timer</string>
        <bool>true</bool>
       </property>
      </widget>
-     <widget class="QCheckBox" name="shortcuts">
+     <widget class="QCheckBox" name="stop">
       <property name="geometry">
        <rect>
-        <x>11</x>
-        <y>120</y>
+        <x>10</x>
+        <y>90</y>
         <width>111</width>
         <height>20</height>
        </rect>
@@ -842,7 +846,7 @@ Timer</string>
        </font>
       </property>
       <property name="text">
-       <string>Shortcuts</string>
+       <string>Auto Stop</string>
       </property>
      </widget>
      <widget class="QCheckBox" name="icons">
