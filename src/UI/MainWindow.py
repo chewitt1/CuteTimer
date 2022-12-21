@@ -67,7 +67,7 @@ class MainWindow:
                 self.on = True
                 self.ui.start.setText("stop")
                 self.ui.start.update()
-                self.timer.start(1000)
+                self.timer.start(10)
 
     def stopSecond(self):
         self.timer.stop()

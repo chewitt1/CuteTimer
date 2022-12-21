@@ -239,7 +239,7 @@ class Ui_MainWindow(object):
 
     # Alarm Sound
     def alarmPopup(self):
-        filename = os.path.join(os.getcwd(), "BlippyTrance.wav")
+        filename = os.path.join(os.getcwd(), "../../src/UI/BlippyTrance.wav")
         temp = QSound(filename)
         temp.play()
 
